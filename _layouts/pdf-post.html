@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<article class="post pdf-post">
+  {% include post-meta.html %}
+  <div class="post-content">
+    {{ content }}
+  </div>
+  <div class="pdf-viewer">
+    <iframe
+      src="{{ "/assets/pdfjs/web/viewer.html" | relative_url }}?file={{ page.pdf | relative_url }}"
+      title="Scanned PDF: {{ page.title }}"
+      loading="lazy">
+    </iframe>
+  </div>
+</article>
