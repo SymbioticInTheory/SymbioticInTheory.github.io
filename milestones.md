@@ -88,14 +88,22 @@ body — no separate mechanism needed, the `pdf-post` layout just places
 `{{ content }}` above the viewer iframe.
 
 ## M4 — PDF embedding mechanism
-- [ ] Vendor the PDF.js "generic" release into `/assets/pdfjs/`
+- [x] Vendor the PDF.js "generic" release into `/assets/pdfjs/`
+      (v6.1.200, the `pdfjs-6.1.200-dist.zip` "dist" build — not
+      `legacy-dist`, since the target browsers are all modern)
 - [x] `pdf-post` layout embeds `web/viewer.html?file=...` in an iframe
       (built early, in M3 — see its decision record)
 - [ ] Verify in-browser rendering (no download prompt) on desktop Chrome/
-      Firefox, iOS Safari, and Android Chrome
+      Firefox, iOS Safari, and Android Chrome — **needs a human with
+      those actual browsers/devices**; I confirmed `viewer.html` and its
+      JS/worker assets now serve (200, no longer 404) and the demo post's
+      iframe resolves, but I have no browser tool to confirm the PDF
+      actually paints on-canvas or that no download prompt fires, on any
+      platform.
 
 **Exit criteria:** a real PDF renders inline in-browser on every target
-device with zero download prompts.
+device with zero download prompts. Mechanism is wired and serving;
+**cross-browser/mobile confirmation still outstanding**, see above.
 
 **Decision record:** rejected native `<embed>`/`<iframe>` pointing directly
 at the PDF (relies on the OS/browser's own PDF plugin — unavailable in some
