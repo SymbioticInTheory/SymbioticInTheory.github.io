@@ -14,11 +14,9 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done
       Pages Jekyll build, so we aren't limited to its plugin whitelist)
 
 **Exit criteria:** empty scaffold site builds via Actions and deploys to
-`symbioticintheory.github.io`. Build/serve verified locally (`bundle exec
-jekyll build` and `serve` both succeed); **not yet verified end-to-end via
-Actions** — needs a push to `main` plus enabling "Build and deployment:
-GitHub Actions" under the repo's Pages settings, both pending user
-go-ahead.
+`symbioticintheory.github.io`. Verified end-to-end: pushed to `main`,
+Pages source set to "GitHub Actions" in repo settings, workflow ran, and
+the placeholder homepage is live at https://symbioticintheory.github.io/.
 
 ## M2 — Theme & layout
 - [ ] Header/nav, homepage post feed, single-post layout, about page, footer
