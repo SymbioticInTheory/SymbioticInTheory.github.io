@@ -216,6 +216,179 @@ file. For a cover thumbnail, run
 `pdftoppm -png -singlefile -f 1 -l 1 -scale-to 600 <pdf> <pdf-without-extension>`
 and add a matching `cover:` front-matter field — both optional.
 
+## Adding a post from a lightweight machine (no dev setup)
+
+You do **not** need the full developer setup above just to add posts.
+Everything in "System setup" (rbenv, Bundler, the Jekyll gem, `vendor/bundle`)
+exists only so you can *preview the site locally* before pushing. The
+actual site build and deploy happens automatically on GitHub's servers
+(see `docs/GITHUB_ACTIONS.md`) every time you push to `main` — so a
+smaller machine that can just edit text, organize files, and run one
+Ruby script is enough to add real posts.
+
+### What that machine actually needs
+
+- **Ruby** — any reasonably modern version (3.x). It does *not* need to
+  match the exact pinned `3.4.10`, and it does not need `rbenv` — the
+  scaffolding script (`script/new_post.rb`) only uses Ruby's built-in
+  standard library, no gems, so there's nothing to `bundle install`.
+- **git** — to save your new post and PDF and send them to GitHub.
+- **`pdftoppm`** (from the `poppler-utils` package) — optional. It's what
+  generates the little cover-image thumbnail for the homepage. Skip it
+  and the post still works fine; it just falls back to a plain placeholder
+  icon on the homepage instead of a picture of the note's first page.
+- A plain text editor (anything — Notepad, TextEdit, VS Code, `nano`,
+  whatever's on hand).
+
+On a fresh Ubuntu/Debian machine, that's just:
+
+```bash
+sudo apt update
+sudo apt install -y ruby-full git poppler-utils
+```
+
+(`ruby-full` rather than bare `ruby` — Debian/Ubuntu sometimes splits
+parts of Ruby's standard library into separate packages, and `ruby-full`
+avoids having to figure out which ones; it's still a much smaller ask
+than the full rbenv toolchain used to compile a pinned Ruby version from
+source.)
+
+You do **not** need to run `script/setup.sh`, install `rbenv`, or run
+`bundle install` on this machine. You also won't be able to run
+`bundle exec jekyll serve` to preview locally — see step 6 below for what
+to do instead.
+
+### Step-by-step: adding a new post
+
+This walks through the whole process end to end, assuming no prior
+experience with this project's tooling.
+
+**1. Get the project folder onto the machine (only once, the first time).**
+
+If it's not already there:
+
+```bash
+git clone git@github.com:SymbioticInTheory/SymbioticInTheory.github.io.git
+cd SymbioticInTheory.github.io
+```
+
+If it's already there from before, just make sure it's up to date:
+
+```bash
+cd SymbioticInTheory.github.io
+git pull
+```
+
+**2. Have your PDF ready somewhere on the machine.**
+
+It doesn't need to be inside the project folder — anywhere is fine (your
+Downloads folder, Desktop, a USB drive, wherever). The script copies it
+into the right place for you; you just need to know the file's path,
+e.g. `~/Downloads/chem-lab-3.pdf`.
+
+**3. Decide three things before you type the command:**
+
+- **Title** — plain English, whatever you'd want as the post's heading.
+  E.g. `"Lab Notebook, Week 3"`.
+- **Topic** — think of this as which *folder/shelf* the note belongs on.
+  It becomes part of the file path (`assets/pdfs/<topic>/`) and the post's
+  URL. Look at `assets/pdfs/` to see topics already in use (e.g.
+  `journal`) — reuse one of those if it fits, or invent a new one if it
+  doesn't; the folder gets created automatically. Pick one topic per post.
+- **Tags** (optional) — unlike topic, a post can have *several* tags, and
+  tags are for labels that cut *across* topics rather than defining a new
+  shelf of their own. Example: a `midterm-review` tag could apply to notes
+  from several different topics/classes, so it's a tag, not a topic.
+
+**4. Run the scaffolding script.**
+
+From inside the project folder:
+
+```bash
+ruby script/new_post.rb "Lab Notebook, Week 3" \
+  --topic chemistry \
+  --pdf ~/Downloads/chem-lab-3.pdf \
+  --tags "lab-notes,week-3"
+```
+
+(Leave off `--tags` entirely if this post doesn't need any. There's also
+an optional `--date 2026-07-15` if you want a date other than today.)
+
+You'll see output like:
+
+```
+Created post:  _posts/2026-07-16-lab-notebook-week-3.md
+Copied PDF to: assets/pdfs/chemistry/2026-07-16-lab-notebook-week-3.pdf
+Cover image:   assets/pdfs/chemistry/2026-07-16-lab-notebook-week-3.png
+```
+
+Three new files now exist in the project folder — a text file (the post)
+and two copies related to your PDF (the PDF itself, and a small preview
+image of its first page). You don't need to touch the PDF or image
+files again; everything from here happens in the text file.
+
+**5. Open the new post file in your text editor and add context text.**
+
+The file is at the path printed above, e.g.
+`_posts/2026-07-16-lab-notebook-week-3.md`. Open it in whatever text
+editor you like. You'll see something like this at the top — **don't
+edit this part**, the script already filled it in correctly:
+
+```
+---
+layout: pdf-post
+title: "Lab Notebook, Week 3"
+date: 2026-07-16
+category: chemistry
+tags: [lab-notes, week-3]
+pdf: /assets/pdfs/chemistry/2026-07-16-lab-notebook-week-3.pdf
+cover: /assets/pdfs/chemistry/2026-07-16-lab-notebook-week-3.png
+---
+```
+
+Below that block is a placeholder comment. Delete it and replace it with
+a few sentences of plain English describing the note — this text appears
+on the page above the embedded PDF. It's normal writing; you don't need
+to know any special syntax, though a few things work if you want them:
+
+- A blank line between paragraphs starts a new paragraph.
+- `**word**` makes a **word** bold.
+- A line starting with `- ` makes a bullet point.
+
+That's it — save the file when you're happy with it.
+
+**6. Preview it (optional — only if this machine has the full dev setup).**
+
+If this is a lightweight machine, you likely can't run
+`bundle exec jekyll serve` (that needs the full setup from earlier in this
+doc). That's fine — skip straight to step 7 and check the *live* site a
+minute or two after pushing instead of previewing locally first.
+
+**7. Save your work and send it to GitHub.**
+
+```bash
+git add _posts assets/pdfs
+git commit -m "Add Lab Notebook, Week 3"
+git push
+```
+
+(`git add _posts assets/pdfs` stages both the new post file and the new
+PDF/cover-image files — the two folders where `script/new_post.rb` put
+everything.)
+
+**8. Wait about a minute, then check the live site.**
+
+Pushing to `main` automatically kicks off a build-and-deploy on GitHub's
+servers (see `docs/GITHUB_ACTIONS.md` if you want the details) — nothing
+further to run yourself. Visit https://symbioticintheory.github.io/ and
+your new post should be there. If something looks wrong, go to the
+**Actions** tab on GitHub to see whether the build failed and why (most
+often a typo in the front matter block from step 5).
+
+**Made a mistake?** Just open the same `_posts/....md` file again, fix
+it, and repeat step 7 (`git add`, `git commit`, `git push`) — there's no
+need to start over or run the script again.
+
 ## GitHub Actions deploy workflow
 
 `.github/workflows/deploy.yml` (to be added in M1) builds with Bundler and
