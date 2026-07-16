@@ -1,0 +1,41 @@
+.post-header h1 {
+  margin-bottom: 0.25rem;
+}
+
+.post-category {
+  text-transform: capitalize;
+}
+
+.post-tags {
+  margin: 0 0 1.5rem;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.1rem 0.7rem;
+  margin: 0 0.4rem 0.4rem 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.tag:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+
+.post-content {
+  font-size: 1.05rem;
+}
+
+.post-content iframe {
+  width: 100%;
+  border: 1px solid var(--color-border);
+}
+
+.page article h1 {
+  margin-bottom: 1rem;
+}

@@ -19,11 +19,28 @@ Pages source set to "GitHub Actions" in repo settings, workflow ran, and
 the placeholder homepage is live at https://symbioticintheory.github.io/.
 
 ## M2 — Theme & layout
-- [ ] Header/nav, homepage post feed, single-post layout, about page, footer
-- [ ] Responsive CSS in `_sass`
-- [ ] Styled with placeholder posts only, no real content yet
+- [x] Header/nav, homepage post feed, single-post layout, about page, footer
+- [x] Responsive CSS in `_sass`
+- [x] Styled with placeholder posts only, no real content yet
 
-**Exit criteria:** shell site looks and navigates correctly with dummy posts.
+**Exit criteria:** shell site looks and navigates correctly with dummy
+posts. Verified via build/serve: homepage paginates correctly (5 posts on
+page 1, 1 on page 2, per `paginate: 5`), About and Tags pages render, tag
+listing is sorted and links back to posts, nav resolves on every page.
+**Not yet visually reviewed in a real browser** — I don't have a browser
+tool to screenshot with, so styling/responsiveness should get an eyeball
+pass (`bundle exec jekyll serve`) before calling this fully done.
+
+**Decision record:** `index.html` (not `.md`) at the site root, using a
+`home` layout — `jekyll-paginate` (classic) only paginates a page
+literally named `index.html`. Nav includes a `/tags/` link even though
+M5 is titled "Post-list polish" — the tag-listing mechanism itself (plain
+Liquid loop over `site.tags`, per the `CLAUDE.md` decision to skip
+`jekyll-tagsgenerator`) was simple enough to build now rather than ship a
+dead nav link; M5's remaining scope is thumbnails and feed pagination
+polish. Six placeholder posts (`_posts/2026-06-*` through `2026-07-*`,
+category `sandbox`/`meta`) exist solely to exercise the feed/pagination/
+tags — replace or remove them in M3/M6 once real posts land.
 
 ## M3 — Content model for PDF posts
 - [ ] Front-matter schema for a PDF post (`layout: pdf-post`, `title`,
