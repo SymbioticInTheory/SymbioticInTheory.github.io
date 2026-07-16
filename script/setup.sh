@@ -39,7 +39,7 @@ install_apt_deps() {
   sudo apt update
   sudo apt install -y git curl build-essential libssl-dev libreadline-dev \
     zlib1g-dev autoconf bison libyaml-dev libncurses5-dev libffi-dev \
-    libgdbm-dev unzip
+    libgdbm-dev unzip poppler-utils
 }
 
 # ---------------------------------------------------------------------------
@@ -189,6 +189,13 @@ check_environment() {
   else
     warn "gh not installed (optional — used for Actions/PR/issue access from the terminal)"
     missing+=("gh")
+  fi
+
+  if have pdftoppm; then
+    ok "pdftoppm (poppler-utils) installed"
+  else
+    warn "pdftoppm not installed (needed by script/new_post.rb to generate cover thumbnails)"
+    missing+=("poppler-utils")
   fi
 
   if [ -f "$REPO_ROOT/Gemfile" ]; then

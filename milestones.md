@@ -114,12 +114,29 @@ renders the PDF itself via canvas/JS, so behavior doesn't depend on the
 viewer's platform.
 
 ## M5 — Post-list polish
-- [ ] Cover thumbnails (render page 1 of each PDF to an image)
-- [ ] Tags/categories
-- [ ] Pagination
+- [x] Cover thumbnails (render page 1 of each PDF to an image)
+- [x] Tags/categories (built in M2 — nav link, `/tags/` index, per-post
+      category/tag display)
+- [x] Pagination (built in M2 — `paginate: 5` via jekyll-paginate)
 
 **Exit criteria:** homepage feed is scannable, not a wall of identical PDF
-icons.
+icons. Verified: `script/new_post.rb` now renders a page-1 thumbnail via
+`pdftoppm` and adds a `cover:` front-matter field; the homepage feed shows
+it (`<img class="post-thumb">`) when the post has a `pdf:` field, or a
+serif-initial placeholder (`.post-thumb-placeholder`) if that PDF post is
+missing a cover — checked both states render correctly (real cover on the
+scaffold-verification-note demo post). Posts with no `pdf:` field at all
+(the six M2 dummy posts, and any future non-PDF post) show no thumb slot
+at all — not every post is required to carry a PDF, so the feed doesn't
+force an icon where there's nothing to depict.
+
+**Decision record:** thumbnails are generated once at authoring time (by
+`script/new_post.rb`) and committed as static PNGs alongside their PDFs,
+rather than generated at build time by a Jekyll plugin/hook. Keeps the
+GitHub Actions build simple (no new runtime dependency there — only local
+dev needs `pdftoppm`) and matches the project's existing pattern of
+committing static assets (the PDFs themselves, vendored PDF.js) rather
+than generating them on every deploy.
 
 ## M6 — Migrate real content
 - [ ] Convert existing PDFs into actual posts

@@ -30,8 +30,10 @@ a global gem install.
 # 1. build toolchain rbenv/ruby-build need to compile Ruby from source
 sudo apt update
 sudo apt install -y git curl build-essential libssl-dev libreadline-dev \
-  zlib1g-dev autoconf bison libyaml-dev libncurses5-dev libffi-dev libgdbm-dev unzip
-# (unzip is also used later for vendoring PDF.js, see below)
+  zlib1g-dev autoconf bison libyaml-dev libncurses5-dev libffi-dev libgdbm-dev \
+  unzip poppler-utils
+# (unzip is also used later for vendoring PDF.js, see below; poppler-utils
+# provides pdftoppm, used by script/new_post.rb to generate cover thumbnails)
 
 # 2. rbenv + ruby-build
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -188,9 +190,16 @@ ruby script/new_post.rb "Title Of The Note" \
 This:
 1. Copies the source PDF to `assets/pdfs/<topic>/<date>-<slug>.pdf`
    (creating the topic folder if it's new).
-2. Creates `_posts/<date>-<slug>.md` with front matter filled in
-   (`layout: pdf-post`, `title`, `date`, `category`, `tags`, `pdf`).
-3. Leaves a placeholder in the post body for context text — write normal
+2. Renders page 1 of the PDF to a cover thumbnail,
+   `assets/pdfs/<topic>/<date>-<slug>.png`, via `pdftoppm` (poppler-utils —
+   see System setup above) — shown next to the post in the homepage feed
+   (M5) instead of a generic placeholder. If `pdftoppm` isn't installed,
+   the script warns and continues without a cover rather than aborting;
+   the feed just falls back to a placeholder for that post.
+3. Creates `_posts/<date>-<slug>.md` with front matter filled in
+   (`layout: pdf-post`, `title`, `date`, `category`, `tags`, `pdf`, and
+   `cover` if a thumbnail was generated).
+4. Leaves a placeholder in the post body for context text — write normal
    Markdown here; it renders above the embedded PDF viewer on the page.
 
 **Topic hierarchy:** `--topic` is the post's primary category and doubles
@@ -203,7 +212,9 @@ that cuts across topics instead of inventing a new topic per label.
 at `assets/pdfs/<topic>/<date>-<slug>.pdf`, create
 `_posts/<date>-<slug>.md` with the same front matter fields by hand, and
 write the front matter's `pdf:` path to match exactly where you put the
-file.
+file. For a cover thumbnail, run
+`pdftoppm -png -singlefile -f 1 -l 1 -scale-to 600 <pdf> <pdf-without-extension>`
+and add a matching `cover:` front-matter field — both optional.
 
 ## GitHub Actions deploy workflow
 

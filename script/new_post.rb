@@ -49,6 +49,26 @@ FileUtils.mkdir_p(pdf_dir)
 FileUtils.mkdir_p(File.join(repo_root, "_posts"))
 FileUtils.cp(options[:pdf], pdf_dest)
 
+# Cover thumbnail: page 1 of the PDF rendered to a PNG, shown in the
+# homepage feed (M5) instead of a wall of identical PDF icons. Requires
+# pdftoppm (poppler-utils, see docs/DEVELOPMENT.md) — if it's missing,
+# skip the cover rather than aborting the whole post; the feed just falls
+# back to its placeholder for that post.
+cover_dest = File.join(pdf_dir, "#{basename}.png")
+cover_front_matter = ""
+if system("which pdftoppm > /dev/null 2>&1")
+  cover_prefix = File.join(pdf_dir, basename)
+  ok = system("pdftoppm", "-png", "-singlefile", "-f", "1", "-l", "1",
+              "-scale-to", "600", pdf_dest, cover_prefix)
+  if ok && File.exist?(cover_dest)
+    cover_front_matter = "cover: /assets/pdfs/#{topic}/#{basename}.png\n"
+  else
+    warn "pdftoppm failed to render a cover thumbnail; continuing without one."
+  end
+else
+  warn "pdftoppm not found (install poppler-utils); continuing without a cover thumbnail."
+end
+
 tags_yaml = options[:tags].empty? ? "[]" : "[#{options[:tags].join(', ')}]"
 
 front_matter = <<~POST
@@ -59,7 +79,7 @@ front_matter = <<~POST
   category: #{topic}
   tags: #{tags_yaml}
   pdf: /assets/pdfs/#{topic}/#{basename}.pdf
-  ---
+  #{cover_front_matter}---
 
   <!-- Context for this note goes here as normal Markdown. It renders
        above the embedded PDF viewer on the post page. Delete this
@@ -70,6 +90,11 @@ File.write(post_path, front_matter)
 
 puts "Created post:  #{post_path.sub(repo_root + '/', '')}"
 puts "Copied PDF to: #{pdf_dest.sub(repo_root + '/', '')}"
+if cover_front_matter.empty?
+  puts "No cover thumbnail generated (see warning above)."
+else
+  puts "Cover image:   #{cover_dest.sub(repo_root + '/', '')}"
+end
 puts
 puts "Next steps:"
 puts "  1. Edit the post body to add context text."

@@ -6,12 +6,21 @@ layout: default
 <ul class="post-feed">
   {% for post in paginator.posts %}
   <li class="post-summary">
-    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    <p class="post-meta">
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-      {% if post.category %} &middot; <span class="post-category">{{ post.category }}</span>{% endif %}
-    </p>
-    {% if post.excerpt %}<div class="post-excerpt">{{ post.excerpt }}</div>{% endif %}
+    {% if post.pdf %}
+      {% if post.cover %}
+        <img class="post-thumb" src="{{ post.cover | relative_url }}" alt="" loading="lazy">
+      {% else %}
+        <div class="post-thumb post-thumb-placeholder" aria-hidden="true">{{ post.title | slice: 0, 1 }}</div>
+      {% endif %}
+    {% endif %}
+    <div class="post-summary-body">
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p class="post-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+        {% if post.category %} &middot; <span class="post-category">{{ post.category }}</span>{% endif %}
+      </p>
+      {% if post.excerpt %}<div class="post-excerpt">{{ post.excerpt }}</div>{% endif %}
+    </div>
   </li>
   {% endfor %}
 </ul>

@@ -5,6 +5,7 @@ date: 2026-07-16
 category: sandbox
 tags: [placeholder, scaffold-check]
 pdf: /assets/pdfs/journal/2023-08-23-chp-1.pdf
+cover: /assets/pdfs/journal/2023-08-23-chp-1.png
 ---
 
 Placeholder `pdf-post` used to verify the M3/M4 scaffolding pipeline
