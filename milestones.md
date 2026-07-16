@@ -52,6 +52,12 @@ tags — replace or remove them in M3/M6 once real posts land.
       into `assets/pdfs/<topic>/`, creates the dated `_posts/` file with
       front matter filled in, leaves a placeholder for context text. See
       `docs/DEVELOPMENT.md` for usage.
+- [x] `script/edit_post.rb` — companion script for editing an
+      already-published post's tags, title, or topic without hand-editing
+      front matter; `--topic` reorganizes the post by moving its PDF/cover
+      into the new topic's folder and updating the front matter to match.
+      Same zero-gem, stdlib-only design as `new_post.rb`, so it works
+      without the full dev setup too. See `docs/DEVELOPMENT.md`.
 - [x] `pdf-post` layout that posts opt into via front matter; renders the
       post's Markdown body (the free-form context) above the embedded PDF
       viewer
