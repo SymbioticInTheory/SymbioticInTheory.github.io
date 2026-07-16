@@ -8,17 +8,64 @@ lets us use plugins outside GitHub's built-in plugin whitelist.
 
 - Ruby (3.x) and Bundler
 
-```bash
-# check versions
-ruby -v
-gem -v
-
-# install bundler if missing
-gem install bundler
-```
-
 Ruby 3.0+ removed `webrick` from the standard library, and Jekyll's local
 dev server depends on it, so it's listed explicitly in the Gemfile below.
+
+Run `script/setup.sh` to perform all of the steps below in one shot — it's
+idempotent (safe to re-run) and skips anything already installed. Run
+`script/setup.sh --check` on its own to just report environment status
+without installing anything. The manual steps are documented below for
+reference / in case you'd rather run them by hand.
+
+### System setup (Ubuntu/Debian)
+
+Ubuntu's apt-provided Ruby lags well behind 3.x (e.g. 20.04 ships 2.7), so
+install Ruby via **rbenv** instead of `apt install ruby-full` — it's the
+virtualenv-equivalent for Ruby: a project-scoped interpreter version with
+no sudo needed after the initial toolchain setup. Gems then go into a
+project-local Bundler path, the equivalent of a venv for gems, instead of
+a global gem install.
+
+```bash
+# 1. build toolchain rbenv/ruby-build need to compile Ruby from source
+sudo apt update
+sudo apt install -y git curl build-essential libssl-dev libreadline-dev \
+  zlib1g-dev autoconf bison libyaml-dev libncurses5-dev libffi-dev libgdbm-dev unzip
+# (unzip is also used later for vendoring PDF.js, see below)
+
+# 2. rbenv + ruby-build
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+# (older guides say to also run `cd ~/.rbenv && src/configure && make -C src`
+# here to build an optional speedup extension — current rbenv versions build
+# it automatically and print a deprecation notice if you run it manually, so
+# it's skipped here)
+
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
+source ~/.bashrc
+
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+# 3. install a Ruby 3.x and scope it to this repo
+rbenv install -l | tail        # see latest available versions
+rbenv install 3.4.10           # newest stable 3.x; avoid 4.x until the gem
+                                # ecosystem (native extensions especially)
+                                # has caught up to the new major version
+
+cd /path/to/SymbioticInTheory.github.io
+rbenv local 3.4.10             # writes .ruby-version, scopes this dir to that Ruby
+
+# 4. Bundler, installed into the project-local gem path (not global)
+gem install bundler
+bundle config set --local path 'vendor/bundle'   # gems land in ./vendor/bundle
+```
+
+Verify:
+
+```bash
+ruby -v      # should show the rbenv-installed 3.x, not the system Ruby
+gem -v
+```
 
 ## Installing the project
 

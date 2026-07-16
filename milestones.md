@@ -7,13 +7,18 @@ downloads).
 Status legend: `[ ]` not started · `[~]` in progress · `[x]` done
 
 ## M1 — Jekyll scaffold
-- [ ] `jekyll new` project structure, `Gemfile`, `_config.yml`
-- [ ] Base `_layouts` / `_includes` / `_sass` directories
-- [ ] GitHub Actions workflow to build and deploy to Pages (not the native
+- [x] Hand-built (not `jekyll new`, to avoid clobbering existing repo
+      files) project structure: `Gemfile`, `_config.yml`
+- [x] Base `_layouts` / `_includes` / `_sass` directories
+- [x] GitHub Actions workflow to build and deploy to Pages (not the native
       Pages Jekyll build, so we aren't limited to its plugin whitelist)
 
 **Exit criteria:** empty scaffold site builds via Actions and deploys to
-`symbioticintheory.github.io`.
+`symbioticintheory.github.io`. Build/serve verified locally (`bundle exec
+jekyll build` and `serve` both succeed); **not yet verified end-to-end via
+Actions** — needs a push to `main` plus enabling "Build and deployment:
+GitHub Actions" under the repo's Pages settings, both pending user
+go-ahead.
 
 ## M2 — Theme & layout
 - [ ] Header/nav, homepage post feed, single-post layout, about page, footer

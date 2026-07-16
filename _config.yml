@@ -1,0 +1,26 @@
+title: Symbiotic In Theory
+description: >-
+  Scanned and handwritten notes, rendered straight in the browser.
+url: "https://symbioticintheory.github.io"
+baseurl: ""
+
+markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title/
+
+paginate: 5
+paginate_path: "/page:num/"
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+
+# Non-site files that live in this repo alongside the Jekyll source but
+# shouldn't be copied into the build output.
+exclude:
+  - CLAUDE.md
+  - README.md
+  - milestones.md
+  - docs/
+  - script/
