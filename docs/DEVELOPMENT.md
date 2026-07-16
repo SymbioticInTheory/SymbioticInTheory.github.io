@@ -67,6 +67,36 @@ ruby -v      # should show the rbenv-installed 3.x, not the system Ruby
 gem -v
 ```
 
+### GitHub CLI (`gh`)
+
+Not required to build or serve the site, but useful for working with this
+repo's GitHub side (checking Actions run status/logs, PRs, issues) without
+leaving the terminal — see `docs/GITHUB_ACTIONS.md`.
+
+Ubuntu's default apt repos predate GitHub adding `gh` as a package there,
+so `apt install gh` fails with "unable to locate package" out of the box.
+Install from GitHub's own apt repository instead (their documented method,
+not a workaround):
+
+```bash
+(type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
+	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& sudo apt update \
+	&& sudo apt install gh -y
+```
+
+Verify:
+
+```bash
+gh --version
+gh auth login    # one-time, needed before gh can act on your behalf
+```
+
 ## Installing the project
 
 ```bash

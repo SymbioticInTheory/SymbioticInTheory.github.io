@@ -102,6 +102,37 @@ install_bundler() {
 }
 
 # ---------------------------------------------------------------------------
+# 5. GitHub CLI (gh) — not required to build the site, but useful for
+# working with Actions runs, PRs, issues, etc. from the terminal.
+# ---------------------------------------------------------------------------
+install_gh() {
+  if have gh; then
+    ok "gh already installed"
+    return
+  fi
+  if ! have apt; then
+    warn "apt not found — install gh manually: https://github.com/cli/cli#installation"
+    return
+  fi
+
+  info "Installing GitHub CLI (sudo required)..."
+  # Ubuntu's default apt repos predate gh being packaged there, so it has
+  # to come from GitHub's own apt repository instead of a plain apt install.
+  type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)
+  sudo mkdir -p -m 755 /etc/apt/keyrings
+  local keyring_tmp
+  keyring_tmp="$(mktemp)"
+  wget -nv -O "$keyring_tmp" https://cli.github.com/packages/githubcli-archive-keyring.gpg
+  sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg < "$keyring_tmp" > /dev/null
+  sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+  sudo mkdir -p -m 755 /etc/apt/sources.list.d
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+    | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  sudo apt update
+  sudo apt install gh -y
+}
+
+# ---------------------------------------------------------------------------
 # Compatibility check — reports current state, doesn't install anything
 # ---------------------------------------------------------------------------
 check_environment() {
@@ -153,6 +184,13 @@ check_environment() {
     missing+=("bundler")
   fi
 
+  if have gh; then
+    ok "gh installed"
+  else
+    warn "gh not installed (optional — used for Actions/PR/issue access from the terminal)"
+    missing+=("gh")
+  fi
+
   if [ -f "$REPO_ROOT/Gemfile" ]; then
     ok "Gemfile present"
   else
@@ -184,6 +222,7 @@ main() {
   install_rbenv
   install_ruby
   install_bundler
+  install_gh
   check_environment
 }
 
