@@ -74,7 +74,8 @@ cd SymbioticInTheory.github.io
 git pull
 ```
 
-**2. Have your PDF ready somewhere on the machine.**
+**2. Have your PDF ready somewhere on the machine (skip this if the post
+doesn't need one — see step 4).**
 
 It doesn't need to be inside the project folder — anywhere is fine (your
 Downloads folder, Desktop, a USB drive, wherever). The script copies it
@@ -106,10 +107,13 @@ ruby script/new_post.rb "Lab Notebook, Week 3" \
   --tags "lab-notes,week-3"
 ```
 
-(Leave off `--tags` entirely if this post doesn't need any. There's also
-an optional `--date 2026-07-15` if you want a date other than today.)
+Leave off `--pdf` entirely for a text-only post (no scanned note, just
+writing) — everything else about the process is the same, just without
+the PDF/cover files and the embedded viewer. Leave off `--tags` if this
+post doesn't need any. There's also an optional `--date 2026-07-15` if
+you want a date other than today.
 
-You'll see output like:
+With a PDF, you'll see output like:
 
 ```
 Created post:  _posts/2026-07-16-lab-notebook-week-3.md
@@ -121,6 +125,10 @@ Three new files now exist in the project folder — a text file (the post)
 and two copies related to your PDF (the PDF itself, and a small preview
 image of its first page). You don't need to touch the PDF or image
 files again; everything from here happens in the text file.
+
+(Without `--pdf`, you'll just see `Created post: ...` and a note that
+it's a text-only post — there's no PDF or cover image to copy, just the
+one file.)
 
 **5. Open the new post file in your text editor and add context text.**
 
@@ -141,10 +149,14 @@ cover: /assets/pdfs/chemistry/2026-07-16-lab-notebook-week-3.png
 ---
 ```
 
+(Without `--pdf`, this block is shorter — `layout: post` instead of
+`layout: pdf-post`, and no `pdf:`/`cover:` lines.)
+
 Below that block is a placeholder comment. Delete it and replace it with
 a few sentences of plain English describing the note — this text appears
-on the page above the embedded PDF. It's normal writing; you don't need
-to know any special syntax, though a few things work if you want them:
+on the page above the embedded PDF (or, for a text-only post, it's simply
+the whole page). It's normal writing; you don't need to know any special
+syntax, though a few things work if you want them:
 
 - A blank line between paragraphs starts a new paragraph.
 - `**word**` makes a **word** bold.
@@ -196,39 +208,52 @@ knows this project's conventions:
 ruby script/new_post.rb "Title Of The Note" \
   --topic calculus \
   --pdf ~/scans/notes.pdf \
-  --tags "midterm-review,chapter-3"   # optional
-  --date 2026-07-15                   # optional, defaults to today
+  --tags "midterm-review,chapter-3" \
+  --date 2026-07-15
 ```
 
+(`--pdf`, `--tags`, and `--date` are all optional — omit `--pdf` entirely
+for a text-only post; `--date` defaults to today if left off.)
+
 This:
-1. Copies the source PDF to `assets/pdfs/<topic>/<date>-<slug>.pdf`
-   (creating the topic folder if it's new).
-2. Renders page 1 of the PDF to a cover thumbnail,
+1. If `--pdf` was given, copies the source PDF to
+   `assets/pdfs/<topic>/<date>-<slug>.pdf` (creating the topic folder if
+   it's new).
+2. If `--pdf` was given, renders page 1 of the PDF to a cover thumbnail,
    `assets/pdfs/<topic>/<date>-<slug>.png`, via `pdftoppm` (poppler-utils
    — see "Local development environment" below) — shown next to the post
    in the homepage feed (M5) instead of a generic placeholder. If
    `pdftoppm` isn't installed, the script warns and continues without a
    cover rather than aborting; the feed just falls back to a placeholder
    for that post.
-3. Creates `_posts/<date>-<slug>.md` with front matter filled in
-   (`layout: pdf-post`, `title`, `date`, `category`, `tags`, `pdf`, and
-   `cover` if a thumbnail was generated).
+3. Creates `_posts/<date>-<slug>.md` with front matter filled in. With
+   `--pdf`: `layout: pdf-post`, `title`, `date`, `category`, `tags`,
+   `pdf`, and `cover` if a thumbnail was generated. Without `--pdf`:
+   `layout: post` and just `title`, `date`, `category`, `tags` — a
+   text-only post, same as the ones used to test the homepage feed
+   during M2.
 4. Leaves a placeholder in the post body for context text — write normal
-   Markdown here; it renders above the embedded PDF viewer on the page.
+   Markdown here. With `--pdf` it renders above the embedded PDF viewer;
+   without it, it's simply the whole post.
 
-**Topic hierarchy:** `--topic` is the post's primary category and doubles
-as the folder PDFs are organized under (`assets/pdfs/<topic>/`), so the
-repo's file layout mirrors the site's topic structure — browsable on disk,
-not just through generated tag/category pages. Use `--tags` for anything
-that cuts across topics instead of inventing a new topic per label.
+**Topic hierarchy:** `--topic` is the post's primary category and, for
+PDF posts, also doubles as the folder PDFs are organized under
+(`assets/pdfs/<topic>/`), so the repo's file layout mirrors the site's
+topic structure — browsable on disk, not just through generated
+tag/category pages. Text-only posts don't have a PDF to organize on disk,
+so `--topic` for those is just the `category:` front-matter value. Use
+`--tags` for anything that cuts across topics instead of inventing a new
+topic per label.
 
-**Manual equivalent**, if you'd rather not run the script: place the PDF
-at `assets/pdfs/<topic>/<date>-<slug>.pdf`, create
-`_posts/<date>-<slug>.md` with the same front matter fields by hand, and
-write the front matter's `pdf:` path to match exactly where you put the
-file. For a cover thumbnail, run
+**Manual equivalent**, if you'd rather not run the script: for a PDF
+post, place the PDF at `assets/pdfs/<topic>/<date>-<slug>.pdf`, create
+`_posts/<date>-<slug>.md` with the same front matter fields by hand
+(`layout: pdf-post`), and write the front matter's `pdf:` path to match
+exactly where you put the file. For a cover thumbnail, run
 `pdftoppm -png -singlefile -f 1 -l 1 -scale-to 600 <pdf> <pdf-without-extension>`
-and add a matching `cover:` front-matter field — both optional.
+and add a matching `cover:` front-matter field — both optional. For a
+text-only post, just create `_posts/<date>-<slug>.md` with
+`layout: post` and no `pdf:`/`cover:` fields.
 
 ## Editing an existing post
 
