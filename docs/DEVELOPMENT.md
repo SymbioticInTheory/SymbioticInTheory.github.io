@@ -318,6 +318,52 @@ What each flag does in this mode:
 `--pdf` (single file) and `--pdf-dir` (folder) are mutually exclusive —
 pass one or the other, not both.
 
+### Sub-folders are ignored — this is deliberate
+
+`--pdf-dir` looks **only at the folder you name, one level deep**. It does
+not descend into sub-folders, and a sub-folder is *not* treated as a
+subcategory. This is intentional: the batch is designed to be one flat
+folder → one topic/subcategory, so that every post in a run gets exactly
+the `--topic`/`--subcategory` you passed, with no surprises inferred from
+how the files happen to be arranged on disk.
+
+Concretely, given this layout:
+
+```
+dir1/
+├── note-a.pdf
+├── note-b.pdf
+└── subdir1/
+    ├── note-c.pdf
+    └── note-d.pdf
+```
+
+running:
+
+```bash
+ruby script/new_post.rb --topic mytopic --pdf-dir dir1/
+```
+
+creates posts for **`note-a.pdf` and `note-b.pdf` only**. `note-c.pdf` and
+`note-d.pdf` inside `subdir1/` are ignored entirely — no posts, no warning,
+nothing. The `subdir1` folder name has no effect on categorization either.
+
+To publish the nested PDFs, run the script **again**, pointing `--pdf-dir`
+straight at the sub-folder — and pass whatever topic/subcategory you want
+*that* batch to have. For example, to make `subdir1` its own subcategory:
+
+```bash
+# first batch: the top-level PDFs
+ruby script/new_post.rb --topic mytopic --pdf-dir dir1/
+
+# second batch: the nested PDFs, filed under a subcategory
+ruby script/new_post.rb --topic mytopic --subcategory subdir1 --pdf-dir dir1/subdir1/
+```
+
+Each folder is its own separate invocation with its own flags. There's no
+single command that walks a whole tree and mirrors it into nested
+categories — that's by design; do one run per folder.
+
 ### How filenames become titles
 
 Each PDF's filename (minus the `.pdf` extension) is turned into a
