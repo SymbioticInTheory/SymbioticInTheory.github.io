@@ -7,8 +7,13 @@ baseurl: ""
 markdown: kramdown
 permalink: /:categories/:year/:month/:day/:title/
 
-paginate: 5
-paginate_path: "/page:num/"
+# Recent-posts feed is paused: the homepage now shows the category index
+# (see index.html / _includes/category-list.html), not a paginated feed.
+# The jekyll-paginate plugin below only activates when `paginate` is set, so
+# leaving it unset disables it. To bring the feed back, restore these two
+# lines and point an index.html (or another page) at the `home` layout.
+# paginate: 5
+# paginate_path: "/page:num/"
 
 plugins:
   - jekyll-seo-tag

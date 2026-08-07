@@ -207,13 +207,20 @@ knows this project's conventions:
 ```bash
 ruby script/new_post.rb "Title Of The Note" \
   --topic calculus \
+  --subcategory derivatives \
   --pdf ~/scans/notes.pdf \
   --tags "midterm-review,chapter-3" \
   --date 2026-07-15
 ```
 
-(`--pdf`, `--tags`, and `--date` are all optional — omit `--pdf` entirely
-for a text-only post; `--date` defaults to today if left off.)
+(`--subcategory`, `--pdf`, `--tags`, and `--date` are all optional — omit
+`--pdf` entirely for a text-only post; `--date` defaults to today if left
+off; omit `--subcategory` unless you want the extra nesting level.)
+
+To scaffold a post for **every PDF in a folder** in one go, use `--pdf-dir`
+instead of `--pdf` — see
+["Adding many posts at once"](#adding-many-posts-at-once-a-whole-folder-of-pdfs)
+below for the full walkthrough.
 
 This:
 1. If `--pdf` was given, copies the source PDF to
@@ -221,11 +228,12 @@ This:
    it's new).
 2. If `--pdf` was given, renders page 1 of the PDF to a cover thumbnail,
    `assets/pdfs/<topic>/<date>-<slug>.png`, via `pdftoppm` (poppler-utils
-   — see "Local development environment" below) — shown next to the post
-   in the homepage feed (M5) instead of a generic placeholder. If
-   `pdftoppm` isn't installed, the script warns and continues without a
-   cover rather than aborting; the feed just falls back to a placeholder
-   for that post.
+   — see "Local development environment" below). This thumbnail is used by
+   the recent-posts feed, which is **currently paused** (the homepage now
+   shows the category index instead — see "Homepage & navigation" below);
+   the thumbnails are still generated so the feed can be switched back on
+   without re-processing anything. If `pdftoppm` isn't installed, the
+   script warns and continues without a cover rather than aborting.
 3. Creates `_posts/<date>-<slug>.md` with front matter filled in. With
    `--pdf`: `layout: pdf-post`, `title`, `date`, `category`, `tags`,
    `pdf`, and `cover` if a thumbnail was generated. Without `--pdf`:
@@ -241,9 +249,19 @@ PDF posts, also doubles as the folder PDFs are organized under
 (`assets/pdfs/<topic>/`), so the repo's file layout mirrors the site's
 topic structure — browsable on disk, not just through generated
 tag/category pages. Text-only posts don't have a PDF to organize on disk,
-so `--topic` for those is just the `category:` front-matter value. Use
+so `--topic` for those is just the category front-matter value. Use
 `--tags` for anything that cuts across topics instead of inventing a new
 topic per label.
+
+`--subcategory` nests one level under the topic: files go to
+`assets/pdfs/<topic>/<subcategory>/`, the post's URL becomes
+`/<topic>/<subcategory>/...`, and the post's front matter switches from the
+singular `category: <topic>` to a plural `categories: [<topic>, <sub>]`
+list (which is what puts both levels in the URL). It's capped at one level
+— there's no sub-subcategory. Every category and subcategory is browsable
+on the site at **`/categories/`** (linked as "Categories" in the nav),
+which groups posts by topic and then by subcategory — the category
+counterpart to the existing `/tags/` page.
 
 **Manual equivalent**, if you'd rather not run the script: for a PDF
 post, place the PDF at `assets/pdfs/<topic>/<date>-<slug>.pdf`, create
@@ -254,6 +272,126 @@ exactly where you put the file. For a cover thumbnail, run
 and add a matching `cover:` front-matter field — both optional. For a
 text-only post, just create `_posts/<date>-<slug>.md` with
 `layout: post` and no `pdf:`/`cover:` fields.
+
+## Adding many posts at once (a whole folder of PDFs)
+
+When you have a stack of scans that all belong to the same category — a
+whole unit's worth of class notes, a batch of journal pages — you don't
+have to run `new_post.rb` once per file. Point it at a **folder** with
+`--pdf-dir` and it scaffolds one post per PDF in that folder in a single
+run.
+
+### The command
+
+```bash
+ruby script/new_post.rb \
+  --topic calculus \
+  --subcategory derivatives \
+  --pdf-dir ~/scans/calc-unit-1/ \
+  --tags "midterm-review"
+```
+
+Note there is **no title in quotes** here — that's the key difference from
+the single-file command. In folder mode each post's title is generated
+automatically from its PDF's filename, so a positional title would be
+meaningless (there are many posts, not one) and is ignored if you pass one.
+
+What each flag does in this mode:
+
+- **`--pdf-dir <folder>`** (required for this mode) — the folder to read
+  PDFs from. Only files ending in `.pdf` (or `.PDF`) are picked up;
+  anything else in the folder is ignored. The folder is only *read* from —
+  your originals are copied into the project, never moved or deleted. It is
+  **not** recursive: PDFs in sub-folders are not included, only the ones
+  directly in the folder you name.
+- **`--topic <topic>`** (required, as always) — applied to *every* post in
+  the batch. You can't give different topics to different files in one run;
+  do a separate run per topic.
+- **`--subcategory <sub>`** (optional) — likewise applied to every post in
+  the batch, nesting them all under `<topic>/<sub>/`.
+- **`--tags "a,b"`** (optional) — the same tag list is attached to every
+  post in the batch.
+- **`--date YYYY-MM-DD`** (optional) — every post in the batch is dated
+  this day (defaults to today). All posts sharing a date is fine; they're
+  still separate posts with distinct URLs.
+
+`--pdf` (single file) and `--pdf-dir` (folder) are mutually exclusive —
+pass one or the other, not both.
+
+### How filenames become titles
+
+Each PDF's filename (minus the `.pdf` extension) is turned into a
+human-readable title: separators become spaces and each word is
+capitalized. For example:
+
+| PDF filename | Generated post title |
+|---|---|
+| `gradient_descent-notes.pdf` | Gradient Descent Notes |
+| `chain rule practice.pdf` | Chain Rule Practice |
+| `IMG_0421.pdf` | Img 0421 |
+
+So the titles are only as good as your filenames. Two ways to get clean
+titles:
+
+1. **Rename the PDFs before running** so their filenames read the way you
+   want the titles to read (`u-substitution.pdf` → "U Substitution").
+   Usually the least work overall.
+2. **Fix them afterward** with `script/edit_post.rb --title "Better Title"`
+   on the individual post (see the next section). `--title` only changes
+   the displayed title, not the file or URL.
+
+### What you'll see, and what it creates
+
+For a folder of three PDFs you'll get output like:
+
+```
+Found 3 PDF(s) in /home/you/scans/calc-unit-1/
+Category: calculus / derivatives
+
+  + Gradient Descent Notes  ->  _posts/2026-08-07-gradient-descent-notes.md
+  + Chain Rule Practice     ->  _posts/2026-08-07-chain-rule-practice.md
+  + U Substitution          ->  _posts/2026-08-07-u-substitution.md
+
+Done: 3 post(s) created, 0 skipped.
+```
+
+For **each** PDF it does exactly what the single-file command does — copies
+the PDF into `assets/pdfs/<topic>/<subcategory>/`, renders a cover
+thumbnail next to it (if `pdftoppm` is installed), and writes a
+`_posts/<date>-<slug>.md` file with the front matter filled in. So a
+three-PDF run creates roughly nine files (three posts, three PDFs, three
+covers).
+
+### If something in the folder can't be added
+
+The batch is resilient: if one file can't be scaffolded — most commonly
+because its generated name collides with a post that already exists (e.g.
+you re-run the same folder twice, or two PDFs have names that reduce to the
+same slug) — the script **skips just that file**, prints a `! Skipped ...`
+warning explaining why, and keeps going with the rest. The closing summary
+tells you how many succeeded and how many were skipped:
+
+```
+  ! Skipped chain-rule-practice.pdf: Post already exists: _posts/2026-08-07-chain-rule-practice.md
+Done: 2 post(s) created, 1 skipped.
+```
+
+Nothing is half-written: a skipped file leaves no post, PDF, or cover
+behind, so you can rename the offending file (or the existing post) and
+re-run — the already-created posts are simply skipped the second time
+around, and only the new one is added.
+
+### After the batch
+
+Same as any post: open each new `_posts/....md` file, replace the
+placeholder comment in the body with your context text, then commit and
+push all of them together:
+
+```bash
+git add _posts assets/pdfs
+git commit -m "Add calculus derivatives notes (unit 1)"
+git push
+```
 
 ## Editing an existing post
 
@@ -267,11 +405,13 @@ full dev setup:
 ruby script/edit_post.rb _posts/2026-07-16-lab-notebook-week-3.md \
   --tags "lab-notes,week-4" \
   --title "Lab Notebook, Week 4" \
-  --topic biology
+  --topic biology \
+  --subcategory cell-structure
 ```
 
-Pass any combination of `--tags`, `--title`, `--topic` — only what you
-pass gets changed. Your context text (the post body) is never touched.
+Pass any combination of `--tags`, `--title`, `--topic`, `--subcategory` —
+only what you pass gets changed. Your context text (the post body) is never
+touched.
 
 - **`--tags "a,b"`** replaces the post's tag list outright. Pass an empty
   string (`--tags ""`) to clear all tags.
@@ -285,6 +425,11 @@ pass gets changed. Your context text (the post body) is never touched.
   topic/category — the script prints a reminder when this happens. Posts
   with no PDF (plain text posts) just get relabeled; there's nothing on
   disk to move for those.
+- **`--subcategory new-sub`** sets or changes the subcategory, relocating
+  the PDF/cover into `assets/pdfs/<topic>/<new-sub>/` the same way — also a
+  URL change. Pass `--subcategory ""` (empty string) to *remove* a
+  subcategory, flattening the post back up to just its topic. Combine with
+  `--topic` to move both at once.
 
 Save and publish the change the same way as any other:
 
@@ -299,6 +444,32 @@ file/URL slug. Both still need to be done by hand — edit the front
 matter's `date:` field and rename the `_posts/...` file and its paired
 PDF/cover files to match, keeping the `<date>-<slug>` pattern consistent
 across all three.
+
+## Homepage & navigation
+
+The site's front page (`/`) is the **category index** — the same browsable
+category → subcategory → posts listing you reach from the "Categories" nav
+link. It's rendered from `_includes/category-list.html`, which both
+`index.html` (the homepage) and `categories.html` (`/categories/`) include,
+so the two stay in sync. The nav bar is Home / About / Categories / Tags;
+"Home" and "Categories" both land on this category view.
+
+The **recent-posts feed** (a reverse-chronological, paginated list of all
+posts, the `home` layout in `_layouts/home.html`) is **currently not shown
+anywhere** — the homepage used to be that feed, and it was retired in favor
+of the category index. The pieces are left in place so it's easy to bring
+back later:
+
+- `_layouts/home.html` still exists (just unused).
+- `jekyll-paginate` is still in the `Gemfile`, but its `paginate:` /
+  `paginate_path:` settings in `_config.yml` are commented out, which is
+  what disables it (the plugin is inert without them).
+
+To restore the feed, uncomment those two `_config.yml` lines and give some
+page the `home` layout (e.g. a `recent.html` with `layout: home`, or point
+`index.html` back at it). Note classic `jekyll-paginate` only paginates a
+root `index.html`; to paginate the feed at any other path (like `/recent/`)
+you'd swap to `jekyll-paginate-v2` — see the Gemfile-plugins note below.
 
 ## Local development environment
 
@@ -418,7 +589,7 @@ bundle exec jekyll build   # one-off static build into _site/
 | `jekyll-seo-tag` | Injects `<meta>`/Open Graph/Twitter Card tags per page from front matter, without hand-writing them. |
 | `jekyll-sitemap` | Auto-generates `sitemap.xml` for search engine crawling. |
 | `jekyll-feed` | Auto-generates an RSS/Atom feed (`/feed.xml`) from posts. |
-| `jekyll-paginate` | Splits the homepage post list into pages (`paginate:` in `_config.yml`). Simple and sufficient for a single chronological feed; if we later need pagination on tag/category pages too, swap to the actively-maintained `jekyll-paginate-v2` instead. |
+| `jekyll-paginate` | Splits a chronological post feed into pages (`paginate:` in `_config.yml`). **Currently inert** — the `paginate:` settings are commented out because the recent-posts feed is retired in favor of the category-index homepage (see "Homepage & navigation"). Left installed so the feed can be re-enabled easily. Simple and sufficient for a single chronological feed at the site root; if we later need pagination on a non-root page (a `/recent/` feed) or on tag/category pages, swap to the actively-maintained `jekyll-paginate-v2` instead. |
 
 Add each with `bundle add <gem> --group jekyll_plugins`, or add manually to
 the Gemfile:

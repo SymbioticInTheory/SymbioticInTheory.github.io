@@ -35,10 +35,16 @@ in one shot.
 ## Adding a post
 
 ```bash
+# one PDF -> one post
 ruby script/new_post.rb "Title Of The Note" --topic <topic> --pdf <path> [--tags "a,b"]
+
+# a whole folder of PDFs -> one post each (titles from filenames)
+ruby script/new_post.rb --topic <topic> --pdf-dir <dir> [--subcategory <sub>]
 ```
 
-See `docs/DEVELOPMENT.md` for the full walkthrough, including a
+`--topic` is the post's browsable **category**; an optional `--subcategory`
+nests it one level deeper. Both are browsable at `/categories/`. See
+`docs/DEVELOPMENT.md` for the full walkthrough, including a
 lightweight-machine-only workflow that doesn't need the full dev
 environment above.
 

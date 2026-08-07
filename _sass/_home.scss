@@ -89,11 +89,20 @@
   font-size: 0.9rem;
 }
 
-.tag-group {
+.tag-group,
+.category-group {
   margin-bottom: 2rem;
 }
 
-.tag-post-list {
+.category-group .subcategory {
+  margin: 1rem 0 0.25rem;
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.tag-post-list,
+.category-post-list {
   list-style: none;
   margin: 0;
   padding: 0;

@@ -85,13 +85,28 @@ embeds `web/viewer.html?file=...` in an iframe" as its task — building it
 here means M4 only has to vendor the files and cross-browser-verify, not
 touch the layout again.
 
-**Decision record:** topics are a single `category` per post (folder-
-mirrored on disk) rather than a nested taxonomy — simpler to reason about
-and enough for a personal notes blog; `tags` remain available for
+**Decision record:** topics started as a single flat `category` per post
+(folder-mirrored on disk) rather than a nested taxonomy — simpler to reason
+about and enough for a personal notes blog; `tags` remain available for
 cross-cutting labels that don't fit the topic hierarchy (e.g.
 `midterm-review`). Context text is just the post's ordinary Markdown
 body — no separate mechanism needed, the `pdf-post` layout just places
 `{{ content }}` above the viewer iframe.
+
+**Decision record (revised):** the flat-topics decision above was later
+extended to allow **one** optional level of nesting — a `--subcategory`
+under the topic. It reflects everywhere: disk
+(`assets/pdfs/<topic>/<subcategory>/`), URL
+(`/topic/subcategory/...`, via the plural `categories: [topic, sub]` front
+matter that the permalink's `:categories` placeholder expands), and the
+`/categories/` browse page. Deliberately capped at one level — deeper
+nesting wasn't needed. Posts without a subcategory keep the original
+singular `category: topic` form; templates read `post.categories` (which
+Jekyll populates from either form) rather than `post.category`.
+`script/new_post.rb` also gained a `--pdf-dir` batch mode: point it at a
+folder and it scaffolds one post per PDF, humanizing each filename into a
+title. The `/categories/` page itself is a plain Liquid `group_by_exp`
+over `site.posts` (same no-plugin approach as the Tags page).
 
 ## M4 — PDF embedding mechanism
 - [x] Vendor the PDF.js "generic" release into `/assets/pdfjs/`

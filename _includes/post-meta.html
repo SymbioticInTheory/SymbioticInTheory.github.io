@@ -2,7 +2,7 @@
   <h1>{{ page.title }}</h1>
   <p class="post-meta">
     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-    {% if page.category %} &middot; <span class="post-category">{{ page.category }}</span>{% endif %}
+    {% if page.categories.size > 0 %} &middot; <span class="post-category"><a href="{{ "/categories/" | relative_url }}#{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a>{% if page.categories[1] %} / <a href="{{ "/categories/" | relative_url }}#{{ page.categories[0] | slugify }}-{{ page.categories[1] | slugify }}">{{ page.categories[1] }}</a>{% endif %}</span>{% endif %}
   </p>
   {% if page.tags.size > 0 %}
   <p class="post-tags">
