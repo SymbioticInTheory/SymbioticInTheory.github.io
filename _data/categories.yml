@@ -1,0 +1,16 @@
+# Display names for categories, keyed by slug.
+#
+# A post's front matter stores the *slug* (so URLs and assets/pdfs/ folders
+# stay clean); this file maps that slug back to the name the site shows.
+# Subcategories are keyed by their full path under the topic, e.g.
+# "linear-algebra/vector-spaces".
+#
+# script/new_post.rb and script/edit_post.rb append to this file when they see
+# a category for the first time, and never overwrite an entry that's already
+# here — so editing a name by hand is safe and sticks.
+#
+# A slug with no entry here still works: _plugins/category_pages.rb falls back
+# to title-casing the slug ("linear-algebra" -> "Linear Algebra").
+"representation": "Representation"
+"sandbox": "Sandbox"
+"meta": "Meta"

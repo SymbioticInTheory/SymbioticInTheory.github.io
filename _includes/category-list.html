@@ -1,35 +1,25 @@
 {% comment %}
-  Browsable category listing, shared by the homepage (index.html) and the
-  /categories/ page. Groups posts by their top-level category, then by
-  subcategory (categories[1]) if they have one. Plain Liquid over site.posts
-  — same rationale as the Tags page (see CLAUDE.md): no plugin needed,
-  Jekyll's built-in category data is enough. Works for both singular
-  `category:` posts and nested `categories: [cat, sub]` posts, because
-  Jekyll merges either form into post.categories.
-{% endcomment %}
-{% assign cats = site.posts | group_by_exp: "post", "post.categories.first" | sort: "name" %}
-{% if cats.size == 0 %}
-<p>No categories yet.</p>
-{% endif %}
-{% for cat in cats %}
-{% if cat.name == "" %}{% continue %}{% endif %}
-<section class="category-group">
-  <h2 id="{{ cat.name | slugify }}">{{ cat.name }}</h2>
+  The category index: every top-level category as a link to its own
+  /categories/<slug>/ page, where its subcategories and posts live. Shared by
+  the homepage (index.html) and the /categories/ page so the two stay in sync.
 
-  {% assign subs = cat.items | group_by_exp: "post", "post.categories[1]" | sort: "name" %}
-  {% for sub in subs %}
-    {% if sub.name and sub.name != "" %}
-  <h3 class="subcategory" id="{{ cat.name | slugify }}-{{ sub.name | slugify }}">{{ sub.name }}</h3>
+  site.data.category_index is assembled by _plugins/category_pages.rb from
+  site.posts — it's already sorted by display name, and carries the post count
+  and subcategory names shown beneath each link.
+{% endcomment %}
+{% assign categories = site.data.category_index %}
+{% if categories == nil or categories.size == 0 %}
+<p>No categories yet.</p>
+{% else %}
+<ul class="category-index">
+  {% for category in categories %}
+  <li class="category-index-item">
+    <a class="category-index-link" href="{{ category.url | relative_url }}">{{ category.name }}</a>
+    <span class="category-count">{{ category.count }} note{% unless category.count == 1 %}s{% endunless %}</span>
+    {% if category.subcategories.size > 0 %}
+    <p class="category-subs">{{ category.subcategories | join: " · " }}</p>
     {% endif %}
-  <ul class="category-post-list">
-    {% assign posts_sorted = sub.items | sort: "date" | reverse %}
-    {% for post in posts_sorted %}
-    <li>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-    </li>
-    {% endfor %}
-  </ul>
+  </li>
   {% endfor %}
-</section>
-{% endfor %}
+</ul>
+{% endif %}

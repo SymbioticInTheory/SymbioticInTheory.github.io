@@ -1,0 +1,14 @@
+{% comment %}
+  A list of posts on a category page. Used twice by _layouts/category.html —
+  once for the category's own posts, once per subcategory — so the two render
+  identically. Takes a `posts` parameter, already sorted newest-first by
+  _plugins/category_pages.rb.
+{% endcomment %}
+<ul class="category-post-list">
+  {% for post in include.posts %}
+  <li>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+  </li>
+  {% endfor %}
+</ul>

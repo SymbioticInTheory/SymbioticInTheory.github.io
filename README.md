@@ -43,7 +43,11 @@ ruby script/new_post.rb --topic <topic> --pdf-dir <dir> [--subcategory <sub>]
 ```
 
 `--topic` is the post's browsable **category**; an optional `--subcategory`
-nests it one level deeper. Both are browsable at `/categories/`. See
+nests it one level deeper. Both may be several words if quoted
+(`--topic "Linear Algebra"`) — the name is slugified for the URL and the
+`assets/pdfs/` folder, and recorded as typed in `_data/categories.yml` for
+display. Browse them at `/categories/`, which lists the categories and links
+into a page per category. See
 `docs/DEVELOPMENT.md` for the full walkthrough, including a
 lightweight-machine-only workflow that doesn't need the full dev
 environment above.

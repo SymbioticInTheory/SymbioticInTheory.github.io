@@ -1,0 +1,30 @@
+---
+layout: default
+---
+{% comment %}
+  One category's browse page, at /categories/<slug>/. The page itself has no
+  source file — _plugins/category_pages.rb generates it and fills in
+  page.category_name, page.direct_posts and page.subcategories.
+
+  Posts filed straight under the category (no subcategory) come first, right
+  under the heading; each subcategory then gets its own section below.
+{% endcomment %}
+<article class="page category-page">
+  <p class="breadcrumb"><a href="{{ "/categories/" | relative_url }}">&larr; All categories</a></p>
+  <h1>{{ page.category_name }}</h1>
+
+  {% if page.direct_posts.size > 0 %}
+  {% include category-posts.html posts=page.direct_posts %}
+  {% endif %}
+
+  {% for subcategory in page.subcategories %}
+  <section class="subcategory-group">
+    <h2 id="{{ subcategory.slug }}">{{ subcategory.name }}</h2>
+    {% include category-posts.html posts=subcategory.posts %}
+  </section>
+  {% endfor %}
+
+  {% if page.post_count == 0 %}
+  <p>No posts in this category yet.</p>
+  {% endif %}
+</article>

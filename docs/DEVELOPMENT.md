@@ -91,6 +91,9 @@ e.g. `~/Downloads/chem-lab-3.pdf`.
   URL. Look at `assets/pdfs/` to see topics already in use (e.g.
   `journal`) — reuse one of those if it fits, or invent a new one if it
   doesn't; the folder gets created automatically. Pick one topic per post.
+  It can be **several words** — just put it in quotes, e.g.
+  `--topic "Linear Algebra"`. See ["Multi-word category
+  names"](#multi-word-category-names) for what happens to the spaces.
 - **Tags** (optional) — unlike topic, a post can have *several* tags, and
   tags are for labels that cut *across* topics rather than defining a new
   shelf of their own. Example: a `midterm-review` tag could apply to notes
@@ -259,9 +262,85 @@ topic per label.
 singular `category: <topic>` to a plural `categories: [<topic>, <sub>]`
 list (which is what puts both levels in the URL). It's capped at one level
 — there's no sub-subcategory. Every category and subcategory is browsable
-on the site at **`/categories/`** (linked as "Categories" in the nav),
-which groups posts by topic and then by subcategory — the category
-counterpart to the existing `/tags/` page.
+on the site starting at **`/categories/`** (linked as "Categories" in the
+nav) — see ["Browsing categories on the
+site"](#browsing-categories-on-the-site) below.
+
+## Multi-word category names
+
+Topics and subcategories can be as many words as you like — quote them on
+the command line:
+
+```bash
+ruby script/new_post.rb "Gram-Schmidt" \
+  --topic "Linear Algebra" \
+  --subcategory "Inner Product Spaces" \
+  --pdf ~/scans/gram-schmidt.pdf
+```
+
+Two things come out of the name you type:
+
+- a **slug** — lowercase and hyphenated (`linear-algebra`). This is the
+  mechanical form, and it's what goes in the post's front matter, which
+  means it's also what shows up in the URL and in the `assets/pdfs/` folder
+  name. Keeping spaces out of those avoids `%20`-riddled links and file
+  paths with spaces in them.
+- a **display name** — exactly what you typed, `Linear Algebra`. This is
+  what the site actually shows, everywhere a category appears as text.
+
+So the command above produces:
+
+```
+front matter:  categories: [linear-algebra, inner-product-spaces]
+on disk:       assets/pdfs/linear-algebra/inner-product-spaces/...
+URL:           /linear-algebra/inner-product-spaces/2026/08/03/gram-schmidt/
+site shows:    Linear Algebra / Inner Product Spaces
+```
+
+The display names live in **`_data/categories.yml`**, keyed by slug (and by
+slug path, `"linear-algebra/inner-product-spaces"`, for subcategories):
+
+```yaml
+"linear-algebra": "Linear Algebra"
+"linear-algebra/inner-product-spaces": "Inner Product Spaces"
+```
+
+`new_post.rb` and `edit_post.rb` append to this file the first time they see
+a category, and **never overwrite an entry that's already there** — so if you
+want to rename a category on the site without moving any files or changing
+any URLs, edit that one line by hand and it sticks. (Conversely: passing a
+different `--topic` capitalization to the scripts later won't change a name
+already recorded; edit the file.)
+
+A slug with no entry in the file still works — it just gets title-cased
+(`linear-algebra` → "Linear Algebra"), which is why a hand-written post's
+front matter doesn't need anything registered to display sensibly. Add an
+entry when the automatic version isn't right, e.g. `"pdes"` → `"PDEs"`.
+
+## Browsing categories on the site
+
+`/categories/` (which is also the homepage — see "Homepage & navigation")
+lists just the **top-level categories**, each as a link, with a post count
+and its subcategory names underneath. Clicking one goes to
+`/categories/<slug>/`, that category's own page, which shows:
+
+1. the posts filed directly under the category (no subcategory), then
+2. one section per subcategory, each with its posts.
+
+A post's own page links its category back to `/categories/<slug>/`, and its
+subcategory to that section (`/categories/<slug>/#<sub-slug>`).
+
+Those per-category pages have no source file — `_plugins/category_pages.rb`
+generates one for every category in use, on every build, straight from the
+posts. Nothing to create or delete when you add or remove a category, and
+nothing to keep in sync by hand. That plugin also assembles the two lookups
+the templates use: `site.data.category_names` (slug → display name) and
+`site.data.category_index` (the sorted list the index renders).
+
+This is a *local* plugin in `_plugins/`, not a gem in the Gemfile. It works
+because the GitHub Actions workflow runs `bundle exec jekyll build` itself
+rather than using GitHub's native Pages Jekyll build, which would ignore
+`_plugins/` entirely. Keep that in mind if the deploy method ever changes.
 
 **Manual equivalent**, if you'd rather not run the script: for a PDF
 post, place the PDF at `assets/pdfs/<topic>/<date>-<slug>.pdf`, create
@@ -271,7 +350,11 @@ exactly where you put the file. For a cover thumbnail, run
 `pdftoppm -png -singlefile -f 1 -l 1 -scale-to 600 <pdf> <pdf-without-extension>`
 and add a matching `cover:` front-matter field — both optional. For a
 text-only post, just create `_posts/<date>-<slug>.md` with
-`layout: post` and no `pdf:`/`cover:` fields.
+`layout: post` and no `pdf:`/`cover:` fields. Write the category as a slug
+(`category: linear-algebra`, not `category: Linear Algebra`) and, if the
+title-cased version isn't the name you want on the site, add a line for it
+in `_data/categories.yml` — see ["Multi-word category
+names"](#multi-word-category-names).
 
 ## Adding many posts at once (a whole folder of PDFs)
 
@@ -477,6 +560,10 @@ touched.
   subcategory, flattening the post back up to just its topic. Combine with
   `--topic` to move both at once.
 
+`--topic` and `--subcategory` take multi-word names in quotes here too, and
+register them in `_data/categories.yml` the same way `new_post.rb` does —
+see ["Multi-word category names"](#multi-word-category-names).
+
 Save and publish the change the same way as any other:
 
 ```bash
@@ -493,12 +580,13 @@ across all three.
 
 ## Homepage & navigation
 
-The site's front page (`/`) is the **category index** — the same browsable
-category → subcategory → posts listing you reach from the "Categories" nav
-link. It's rendered from `_includes/category-list.html`, which both
-`index.html` (the homepage) and `categories.html` (`/categories/`) include,
-so the two stay in sync. The nav bar is Home / About / Categories / Tags;
-"Home" and "Categories" both land on this category view.
+The site's front page (`/`) is the **category index** — the same list of
+category links you reach from the "Categories" nav link. It's rendered from
+`_includes/category-list.html`, which both `index.html` (the homepage) and
+`categories.html` (`/categories/`) include, so the two stay in sync. The nav
+bar is Home / About / Categories / Tags; "Home" and "Categories" both land on
+this category view. From there you drill into a single category's page — see
+["Browsing categories on the site"](#browsing-categories-on-the-site).
 
 The **recent-posts feed** (a reverse-chronological, paginated list of all
 posts, the `home` layout in `_layouts/home.html`) is **currently not shown

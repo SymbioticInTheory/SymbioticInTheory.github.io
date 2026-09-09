@@ -17,7 +17,8 @@ layout: default
       <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
       <p class="post-meta">
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-        {% if post.categories.size > 0 %} &middot; <span class="post-category">{{ post.categories[0] }}{% if post.categories[1] %} / {{ post.categories[1] }}{% endif %}</span>{% endif %}
+        {% assign cat_slug = post.categories[0] %}{% assign cat_name = site.data.category_names[cat_slug] | default: cat_slug %}{% assign sub_slug = post.categories[1] %}{% assign sub_key = cat_slug | append: "/" | append: sub_slug %}{% assign sub_name = site.data.category_names[sub_key] | default: sub_slug %}
+        {% if cat_slug %} &middot; <span class="post-category">{{ cat_name }}{% if sub_slug %} / {{ sub_name }}{% endif %}</span>{% endif %}
       </p>
       {% if post.excerpt %}<div class="post-excerpt">{{ post.excerpt }}</div>{% endif %}
     </div>

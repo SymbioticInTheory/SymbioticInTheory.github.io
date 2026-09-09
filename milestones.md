@@ -105,8 +105,34 @@ singular `category: topic` form; templates read `post.categories` (which
 Jekyll populates from either form) rather than `post.category`.
 `script/new_post.rb` also gained a `--pdf-dir` batch mode: point it at a
 folder and it scaffolds one post per PDF, humanizing each filename into a
-title. The `/categories/` page itself is a plain Liquid `group_by_exp`
-over `site.posts` (same no-plugin approach as the Tags page).
+title.
+
+**Decision record (revised again):** the `/categories/` page started as a
+single plain-Liquid `group_by_exp` over `site.posts` that rendered every
+category, subcategory, and post at once. It was split into a two-level
+drill-down: `/categories/` now lists only top-level categories as links, and
+each links to its own `/categories/<slug>/` page holding that category's
+direct posts plus a section per subcategory. Liquid can't generate pages, so
+this needs `_plugins/category_pages.rb` — a **local** `Jekyll::Generator`,
+which is a different thing from the third-party plugin rejected for the tag
+listing (that one was unmaintained and redundant with `site.tags`; here
+built-in data genuinely can't do the job). It loads because the Actions
+workflow runs `bundle exec jekyll build` rather than the native Pages build.
+
+**Decision record:** category names may be multiple words. The name splits
+into a slug (`linear-algebra`) stored in the post's front matter — and so in
+the URL and the `assets/pdfs/` folder — and a display name (`Linear
+Algebra`) held in `_data/categories.yml`, keyed by slug or slug path
+(`"linear-algebra/vector-spaces"`). Rejected putting spaces directly in the
+front matter: Jekyll builds it fine, but the `:categories` permalink
+placeholder percent-encodes them (`/linear%20algebra/2026/...`) and the PDF
+folders end up with spaces in their names. Rejected deriving the display
+name from the slug alone (no data file): title-casing mangles acronyms and
+small words ("Pdes And Fourier"). The scripts append to the registry and
+never overwrite, so a name edited by hand survives; an unregistered slug
+falls back to title-casing, so hand-written front matter still renders.
+Shared slug/registry helpers live in `script/categories.rb`, stdlib-only so
+both scripts still run on the lightweight authoring machine.
 
 ## M4 — PDF embedding mechanism
 - [x] Vendor the PDF.js "generic" release into `/assets/pdfjs/`

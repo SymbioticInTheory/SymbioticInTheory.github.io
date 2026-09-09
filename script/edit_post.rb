@@ -16,10 +16,18 @@
 # empty string to --subcategory to remove the subcategory (flattening the
 # post back up to just its topic). --title only changes the displayed title
 # — it does not rename the post's file, date, or URL.
+#
+# Topics and subcategories may be several words long — quote them. As in
+# new_post.rb, the name is slugified for the front matter, URL, and folder
+# ("Linear Algebra" -> linear-algebra) and recorded as typed in
+# _data/categories.yml for the site to display. To rename a category that's
+# already registered there, edit that file directly — this script only ever
+# adds entries, so a name you've tuned by hand is never clobbered.
 
 require "optparse"
 require "yaml"
 require "fileutils"
+require_relative "categories"
 
 options = {}
 OptionParser.new do |opts|
@@ -87,15 +95,25 @@ if options.key?(:topic) || options.key?(:subcategory)
   old_topic = old_cats[0]
   old_sub = old_cats[1]
 
-  new_topic = options.key?(:topic) ? options[:topic].downcase.strip : old_topic
-  new_sub = if options.key?(:subcategory)
-    s = options[:subcategory].downcase.strip
-    s.empty? ? nil : s
+  # Names as typed feed _data/categories.yml; their slugs feed the front
+  # matter, the URL, and the assets/pdfs/ folder.
+  new_topic_name = options.key?(:topic) ? Categories.normalize_name(options[:topic]) : nil
+  new_topic = new_topic_name ? Categories.slugify(new_topic_name) : old_topic
+
+  if options.key?(:subcategory)
+    new_sub_name = Categories.normalize_name(options[:subcategory])
+    new_sub = new_sub_name.empty? ? nil : Categories.slugify(new_sub_name)
   else
-    old_sub
+    new_sub_name = nil
+    new_sub = old_sub
   end
 
+  abort "Topic #{options[:topic].inspect} slugifies to nothing usable." if new_topic_name && new_topic.empty?
+  abort "Subcategory #{options[:subcategory].inspect} slugifies to nothing usable." if new_sub&.empty?
   abort "This post has no topic to change; set one with --topic." if new_topic.nil? || new_topic.empty?
+
+  Categories.register(repo_root, new_topic, new_topic_name) if new_topic_name
+  Categories.register(repo_root, "#{new_topic}/#{new_sub}", new_sub_name) if new_sub && new_sub_name
 
   new_cats = new_sub ? [new_topic, new_sub] : [new_topic]
   old_seg = [old_topic, old_sub].compact.join("/")

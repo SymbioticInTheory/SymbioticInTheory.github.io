@@ -8,15 +8,21 @@
 #   * text-only        (neither flag)    (no PDF, plain `post` layout)
 #
 # A post's --topic is its browsable category (folder-mirrored on disk under
-# assets/pdfs/<topic>/ and shown in the /categories/ section). An optional
+# assets/pdfs/<topic>/ and shown at /categories/<topic>/). An optional
 # --subcategory nests one level deeper: files go to
 # assets/pdfs/<topic>/<subcategory>/, the URL becomes
-# /<topic>/<subcategory>/..., and the browse page groups it under its topic.
+# /<topic>/<subcategory>/..., and the topic's browse page groups it into its
+# own section.
+#
+# Topics and subcategories may be several words long — quote them. The name
+# is slugified for the front matter, URL, and folder ("Linear Algebra" ->
+# linear-algebra), and recorded as typed in _data/categories.yml so the site
+# displays it properly. See script/categories.rb.
 #
 # Usage:
 #   # single PDF
 #   ruby script/new_post.rb "Title Of The Note" \
-#     --topic calculus [--subcategory derivatives] \
+#     --topic "Linear Algebra" [--subcategory "Vector Spaces"] \
 #     --pdf ~/scans/notes.pdf [--tags "midterm,chapter-3"] [--date 2026-07-15]
 #
 #   # a whole directory of PDFs -> one post each
@@ -29,6 +35,7 @@
 require "optparse"
 require "date"
 require "fileutils"
+require_relative "categories"
 
 # Raised for a problem with a single post so batch mode can skip that one
 # file and carry on rather than aborting the whole run.
@@ -37,8 +44,8 @@ class PostError < StandardError; end
 options = { tags: [], date: Date.today.to_s }
 OptionParser.new do |opts|
   opts.banner = "Usage: ruby script/new_post.rb [\"Title\"] --topic TOPIC [--subcategory SUB] [--pdf PATH | --pdf-dir DIR] [--tags a,b] [--date YYYY-MM-DD]"
-  opts.on("-t TOPIC", "--topic TOPIC", "Topic/category (e.g. calculus, physics, journal)") { |v| options[:topic] = v }
-  opts.on("-s SUB", "--subcategory SUB", "Optional subcategory nested under the topic") { |v| options[:subcategory] = v }
+  opts.on("-t TOPIC", "--topic TOPIC", "Topic/category (e.g. calculus, \"Linear Algebra\")") { |v| options[:topic] = v }
+  opts.on("-s SUB", "--subcategory SUB", "Optional subcategory nested under the topic (may be several words)") { |v| options[:subcategory] = v }
   opts.on("-p PATH", "--pdf PATH", "Path to a single source PDF (optional — omit for a text-only post)") { |v| options[:pdf] = v }
   opts.on("-d DIR", "--pdf-dir DIR", "Directory of PDFs — scaffolds one post per PDF (title from each filename)") { |v| options[:pdf_dir] = v }
   opts.on("--tags TAGS", "Comma-separated tags (optional; applied to every post in --pdf-dir mode)") { |v| options[:tags] = v.split(",").map(&:strip) }
@@ -49,9 +56,14 @@ abort "Missing --topic" unless options[:topic]
 abort "Pass either --pdf or --pdf-dir, not both." if options[:pdf] && options[:pdf_dir]
 
 repo_root = File.expand_path("..", __dir__)
-topic = options[:topic].downcase.strip
-subcategory = options[:subcategory]&.downcase&.strip
-subcategory = nil if subcategory && subcategory.empty?
+# Slugs are what go in the front matter, the URL, and the folder names; the
+# names as typed are recorded in _data/categories.yml for the site to display.
+begin
+  topic, subcategory = Categories.resolve(repo_root, topic: options[:topic],
+                                                     subcategory: options[:subcategory])
+rescue ArgumentError => e
+  abort e.message
+end
 # Path segment under assets/pdfs/ — nested when a subcategory is present.
 cat_seg = subcategory ? "#{topic}/#{subcategory}" : topic
 
@@ -67,7 +79,7 @@ def humanize(path)
 end
 
 def slugify(title)
-  title.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-+|-+$/, "")
+  Categories.slugify(title)
 end
 
 # Creates one post (markdown file + optional PDF/cover). Raises PostError on
@@ -164,7 +176,7 @@ if options[:pdf_dir]
   abort "No PDFs found in #{dir}" if pdfs.empty?
 
   puts "Found #{pdfs.length} PDF(s) in #{dir}"
-  puts "Category: #{topic}#{subcategory ? " / #{subcategory}" : ''}"
+  puts "Category: #{Categories.describe(repo_root, topic, subcategory)}"
   puts
 
   created = 0

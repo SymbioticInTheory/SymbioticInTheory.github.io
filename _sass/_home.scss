@@ -89,16 +89,69 @@
   font-size: 0.9rem;
 }
 
-.tag-group,
-.category-group {
+.tag-group {
   margin-bottom: 2rem;
 }
 
-.category-group .subcategory {
-  margin: 1rem 0 0.25rem;
-  font-size: 1.05rem;
+/* The category index (homepage and /categories/): one link per top-level
+   category, drilling into its own page. */
+.category-index {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.category-index-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.category-index-link {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--color-text);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+.category-count {
   color: var(--color-text-muted);
-  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.category-subs {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* A single category's page: subcategory sections, each with its posts. */
+.breadcrumb {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+}
+
+.category-page > .category-post-list {
+  margin-bottom: 2rem;
+}
+
+.subcategory-group {
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
 }
 
 .tag-post-list,

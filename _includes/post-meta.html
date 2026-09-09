@@ -1,8 +1,20 @@
+{% comment %}
+  Shared title/date/category/tags header for the `post` and `pdf-post`
+  layouts. Categories are stored in front matter as slugs, so the display
+  name comes from site.data.category_names (built by
+  _plugins/category_pages.rb) and the link points at that category's own
+  browse page — the subcategory link deep-links to its section there.
+{% endcomment %}
+{% assign cat_slug = page.categories[0] %}
+{% assign cat_name = site.data.category_names[cat_slug] | default: cat_slug %}
+{% assign sub_slug = page.categories[1] %}
+{% assign sub_key = cat_slug | append: "/" | append: sub_slug %}
+{% assign sub_name = site.data.category_names[sub_key] | default: sub_slug %}
 <header class="post-header">
   <h1>{{ page.title }}</h1>
   <p class="post-meta">
     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-    {% if page.categories.size > 0 %} &middot; <span class="post-category"><a href="{{ "/categories/" | relative_url }}#{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a>{% if page.categories[1] %} / <a href="{{ "/categories/" | relative_url }}#{{ page.categories[0] | slugify }}-{{ page.categories[1] | slugify }}">{{ page.categories[1] }}</a>{% endif %}</span>{% endif %}
+    {% if cat_slug %} &middot; <span class="post-category"><a href="{{ "/categories/" | append: cat_slug | append: "/" | relative_url }}">{{ cat_name }}</a>{% if sub_slug %} / <a href="{{ "/categories/" | append: cat_slug | append: "/#" | append: sub_slug | relative_url }}">{{ sub_name }}</a>{% endif %}</span>{% endif %}
   </p>
   {% if page.tags.size > 0 %}
   <p class="post-tags">
