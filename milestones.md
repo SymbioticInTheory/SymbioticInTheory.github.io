@@ -39,8 +39,10 @@ Liquid loop over `site.tags`, per the `CLAUDE.md` decision to skip
 `jekyll-tagsgenerator`) was simple enough to build now rather than ship a
 dead nav link; M5's remaining scope is thumbnails and feed pagination
 polish. Six placeholder posts (`_posts/2026-06-*` through `2026-07-*`,
-category `sandbox`/`meta`) exist solely to exercise the feed/pagination/
-tags — replace or remove them in M3/M6 once real posts land.
+category `sandbox`/`meta`) existed solely to exercise the
+feed/pagination/tags. **They have since been deleted**, along with the
+`sandbox`/`meta` categories they carried, now that real posts have landed
+(M6) — so the verification described above can't be re-run as written.
 
 ## M3 — Content model for PDF posts
 - [x] Front-matter schema for a PDF post (`layout: pdf-post`, `title`,
@@ -71,9 +73,9 @@ built page renders title/date/category/tags, then the Markdown context
 text, then a `.pdf-viewer` iframe — in that order. The iframe's `src`
 already points at the final target path
 (`/assets/pdfjs/web/viewer.html?file=...`), so it 404s until M4 vendors
-PDF.js; that's expected and is M4's job, not M3's. Remove the
-verification post once M4 lands (it'll get a real PDF.js-rendered demo
-then anyway) and once M6 migrates the real journal PDFs.
+PDF.js; that's expected and is M4's job, not M3's. That verification post
+has since been **deleted**, now that real PDF posts exist to demonstrate
+the same pipeline.
 
 **Decision record:** `pdf-post`'s title/date/category/tags header is
 identical to the plain `post` layout's, so it was factored into a shared
@@ -172,10 +174,10 @@ icons. Verified: `script/new_post.rb` now renders a page-1 thumbnail via
 it (`<img class="post-thumb">`) when the post has a `pdf:` field, or a
 serif-initial placeholder (`.post-thumb-placeholder`) if that PDF post is
 missing a cover — checked both states render correctly (real cover on the
-scaffold-verification-note demo post). Posts with no `pdf:` field at all
-(the six M2 dummy posts, and any future non-PDF post) show no thumb slot
-at all — not every post is required to carry a PDF, so the feed doesn't
-force an icon where there's nothing to depict.
+since-deleted scaffold-verification-note demo post). Posts with no `pdf:`
+field at all (the since-deleted M2 dummy posts, and any future non-PDF
+post) show no thumb slot at all — not every post is required to carry a
+PDF, so the feed doesn't force an icon where there's nothing to depict.
 
 **Decision record:** thumbnails are generated once at authoring time (by
 `script/new_post.rb`) and committed as static PNGs alongside their PDFs,
