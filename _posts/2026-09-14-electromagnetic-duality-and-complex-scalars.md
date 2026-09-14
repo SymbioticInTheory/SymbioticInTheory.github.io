@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [quantum-field-theory, symmetry-and-spinors]
 tags: [electromagnetic-duality, gauge-fields, maxwell-theory, complex-scalars, sl2r]
 pdf: /assets/pdfs/quantum-field-theory/symmetry-and-spinors/2026-09-14-electromagnetic-duality-and-complex-scalars.pdf
+pages: 3
 cover: /assets/pdfs/quantum-field-theory/symmetry-and-spinors/2026-09-14-electromagnetic-duality-and-complex-scalars.png
 ---
 

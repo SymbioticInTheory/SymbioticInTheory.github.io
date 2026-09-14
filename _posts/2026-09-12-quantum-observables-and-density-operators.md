@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-information, quantum-foundations]
 tags: [quantum-information, observables, density-matrices, measurement]
 pdf: /assets/pdfs/quantum-information/quantum-foundations/2026-09-12-quantum-observables-and-density-operators.pdf
+pages: 12
 cover: /assets/pdfs/quantum-information/quantum-foundations/2026-09-12-quantum-observables-and-density-operators.png
 ---
 

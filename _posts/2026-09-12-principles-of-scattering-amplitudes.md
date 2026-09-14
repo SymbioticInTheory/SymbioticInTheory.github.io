@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [scattering-amplitudes, amplitude-foundations]
 tags: [scattering-amplitudes, locality, unitarity, polarisation-vectors, quantum-field-theory]
 pdf: /assets/pdfs/scattering-amplitudes/amplitude-foundations/2026-09-12-principles-of-scattering-amplitudes.pdf
+pages: 4
 cover: /assets/pdfs/scattering-amplitudes/amplitude-foundations/2026-09-12-principles-of-scattering-amplitudes.png
 ---
 

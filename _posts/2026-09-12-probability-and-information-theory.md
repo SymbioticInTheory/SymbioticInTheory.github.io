@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-information, information-theory]
 tags: [quantum-information, probability-theory, conditional-probability, shannon-entropy]
 pdf: /assets/pdfs/quantum-information/information-theory/2026-09-12-probability-and-information-theory.pdf
+pages: 29
 cover: /assets/pdfs/quantum-information/information-theory/2026-09-12-probability-and-information-theory.png
 ---
 

@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, branes]
 tags: [string-theory, supergravity, branes, bps-states, p-form-fields]
 pdf: /assets/pdfs/string-theory/branes/2026-09-12-supergravity-brane-solutions.pdf
+pages: 38
 cover: /assets/pdfs/string-theory/branes/2026-09-12-supergravity-brane-solutions.png
 ---
 

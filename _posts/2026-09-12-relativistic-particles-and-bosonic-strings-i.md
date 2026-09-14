@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, string-quantisation]
 tags: [string-theory, worldline, bosonic-string, polyakov-action, constraints]
 pdf: /assets/pdfs/string-theory/string-quantisation/2026-09-12-relativistic-particles-and-bosonic-strings-i.pdf
+pages: 27
 cover: /assets/pdfs/string-theory/string-quantisation/2026-09-12-relativistic-particles-and-bosonic-strings-i.png
 ---
 

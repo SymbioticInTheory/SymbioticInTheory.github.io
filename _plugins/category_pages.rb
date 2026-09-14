@@ -70,6 +70,14 @@ module SymbioticInTheory
           "subcategories" => page.data["subcategories"].map { |sub| sub["name"] },
         }
       end
+
+      pdf_posts = site.posts.docs.select { |post| post.data["pdf"] }
+      page_count = pdf_posts.sum { |post| post.data["pages"].to_i }
+      site.data["archive_stats"] = {
+        "pdf_count"          => pdf_posts.length,
+        "page_count"         => page_count,
+        "page_count_display" => page_count.to_s.reverse.scan(/.{1,3}/).join(",").reverse,
+      }
     end
 
     private

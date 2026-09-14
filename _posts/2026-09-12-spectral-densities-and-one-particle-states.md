@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, scattering-theory]
 tags: [quantum-field-theory, spectral-density, one-particle-states, green-functions]
 pdf: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-spectral-densities-and-one-particle-states.pdf
+pages: 4
 cover: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-spectral-densities-and-one-particle-states.png
 ---
 

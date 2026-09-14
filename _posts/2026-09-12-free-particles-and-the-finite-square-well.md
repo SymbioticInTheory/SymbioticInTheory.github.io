@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-mechanics, central-potentials]
 tags: [quantum-mechanics, schrodinger-equation, free-particles, square-well]
 pdf: /assets/pdfs/quantum-mechanics/central-potentials/2026-09-12-free-particles-and-the-finite-square-well.pdf
+pages: 5
 cover: /assets/pdfs/quantum-mechanics/central-potentials/2026-09-12-free-particles-and-the-finite-square-well.png
 ---
 

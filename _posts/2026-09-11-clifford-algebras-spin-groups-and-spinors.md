@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [supergravity, spin-geometry]
 tags: [spinors, clifford-algebras, spin-groups, representation-theory, differential-geometry]
 pdf: /assets/pdfs/supergravity/spin-geometry/2026-09-11-clifford-algebras-spin-groups-and-spinors.pdf
+pages: 22
 cover: /assets/pdfs/supergravity/spin-geometry/2026-09-11-clifford-algebras-spin-groups-and-spinors.png
 ---
 

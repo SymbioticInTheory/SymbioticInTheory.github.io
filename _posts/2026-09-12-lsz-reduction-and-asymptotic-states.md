@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, scattering-theory]
 tags: [quantum-field-theory, lsz-reduction, scattering-amplitudes, green-functions]
 pdf: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-lsz-reduction-and-asymptotic-states.pdf
+pages: 9
 cover: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-lsz-reduction-and-asymptotic-states.png
 ---
 

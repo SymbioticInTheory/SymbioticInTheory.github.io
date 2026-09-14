@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-mechanics, hydrogen-atom]
 tags: [quantum-mechanics, hydrogen-atom, spherical-harmonics, quantum-numbers]
 pdf: /assets/pdfs/quantum-mechanics/hydrogen-atom/2026-09-12-hydrogen-atom-reference-sheet.pdf
+pages: 3
 cover: /assets/pdfs/quantum-mechanics/hydrogen-atom/2026-09-12-hydrogen-atom-reference-sheet.png
 ---
 

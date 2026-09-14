@@ -5,6 +5,7 @@ date: 2026-09-11
 category: dissertation
 tags: [topological-strings, calabi-yau-manifolds, mirror-symmetry, chern-simons-theory, open-closed-duality, gromov-witten-invariants, superstrings, quantum-field-theory, brst, supergravity]
 pdf: /assets/pdfs/dissertation/2026-09-11-topological-string-theory-and-open-closed-string-dualities.pdf
+pages: 106
 cover: /assets/pdfs/dissertation/2026-09-11-topological-string-theory-and-open-closed-string-dualities.png
 ---
 

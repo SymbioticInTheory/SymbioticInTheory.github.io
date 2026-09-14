@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [supergravity, supergravity-foundations]
 tags: [n=2-supergravity, matter-couplings, vector-multiplets, hypermultiplets, superconformal-methods]
 pdf: /assets/pdfs/supergravity/supergravity-foundations/2026-09-14-construction-of-matter-coupled-n-2-supergravity.pdf
+pages: 102
 cover: /assets/pdfs/supergravity/supergravity-foundations/2026-09-14-construction-of-matter-coupled-n-2-supergravity.png
 ---
 

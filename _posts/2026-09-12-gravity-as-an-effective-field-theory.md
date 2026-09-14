@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, effective-field-theory]
 tags: [quantum-field-theory, effective-field-theory, general-relativity, gravity, gauge-symmetry]
 pdf: /assets/pdfs/quantum-field-theory/effective-field-theory/2026-09-12-gravity-as-an-effective-field-theory.pdf
+pages: 6
 cover: /assets/pdfs/quantum-field-theory/effective-field-theory/2026-09-12-gravity-as-an-effective-field-theory.png
 ---
 

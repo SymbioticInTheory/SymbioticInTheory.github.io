@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, mathematical-foundations]
 tags: [thermodynamics, kinetic-theory, ideal-gas, statistical-physics]
 pdf: /assets/pdfs/string-theory/mathematical-foundations/2026-09-12-kinetic-theory-ideal-gases-and-atmospheric-pressure.pdf
+pages: 4
 cover: /assets/pdfs/string-theory/mathematical-foundations/2026-09-12-kinetic-theory-ideal-gases-and-atmospheric-pressure.png
 ---
 

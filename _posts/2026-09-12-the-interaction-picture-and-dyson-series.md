@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, scattering-theory]
 tags: [quantum-field-theory, interaction-picture, dyson-series, s-matrix]
 pdf: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-the-interaction-picture-and-dyson-series.pdf
+pages: 12
 cover: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-the-interaction-picture-and-dyson-series.png
 ---
 

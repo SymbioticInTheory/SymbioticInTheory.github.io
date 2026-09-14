@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, renormalisation]
 tags: [quantum-field-theory, loop-amplitudes, dimensional-regularisation, renormalisation]
 pdf: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-loop-corrections-and-dimensional-regularisation.pdf
+pages: 23
 cover: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-loop-corrections-and-dimensional-regularisation.png
 ---
 

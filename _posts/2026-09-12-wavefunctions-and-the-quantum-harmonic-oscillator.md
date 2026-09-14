@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, foundations]
 tags: [quantum-field-theory, quantum-mechanics, wavefunctions, harmonic-oscillator]
 pdf: /assets/pdfs/quantum-field-theory/foundations/2026-09-12-wavefunctions-and-the-quantum-harmonic-oscillator.pdf
+pages: 7
 cover: /assets/pdfs/quantum-field-theory/foundations/2026-09-12-wavefunctions-and-the-quantum-harmonic-oscillator.png
 ---
 

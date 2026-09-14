@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [commutative-algebra, category-theory]
 tags: [deformation-theory, homological-algebra, differential-graded-algebra, derived-geometry]
 pdf: /assets/pdfs/commutative-algebra/category-theory/2026-09-14-deformation-theory-and-homological-algebra.pdf
+pages: 3
 cover: /assets/pdfs/commutative-algebra/category-theory/2026-09-14-deformation-theory-and-homological-algebra.png
 ---
 

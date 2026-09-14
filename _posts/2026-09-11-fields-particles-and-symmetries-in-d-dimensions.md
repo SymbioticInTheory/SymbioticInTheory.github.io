@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [supergravity, field-theory-foundations]
 tags: [quantum-field-theory, representation-theory, scalar-fields, symmetries]
 pdf: /assets/pdfs/supergravity/field-theory-foundations/2026-09-11-fields-particles-and-symmetries-in-d-dimensions.pdf
+pages: 2
 cover: /assets/pdfs/supergravity/field-theory-foundations/2026-09-11-fields-particles-and-symmetries-in-d-dimensions.png
 ---
 

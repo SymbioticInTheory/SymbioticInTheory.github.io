@@ -35,6 +35,7 @@
 require "optparse"
 require "date"
 require "fileutils"
+require "open3"
 require_relative "categories"
 
 # Raised for a problem with a single post so batch mode can skip that one
@@ -82,6 +83,18 @@ def slugify(title)
   Categories.slugify(title)
 end
 
+def pdf_page_count(path)
+  output, status = Open3.capture2e("pdfinfo", path)
+  raise PostError, "pdfinfo could not read #{path}: #{output.strip}" unless status.success?
+
+  pages = output[/^Pages:\s+(\d+)/, 1]
+  raise PostError, "pdfinfo did not report a page count for #{path}." unless pages
+
+  pages.to_i
+rescue Errno::ENOENT
+  raise PostError, "pdfinfo not found (install poppler-utils before adding a PDF)."
+end
+
 # Creates one post (markdown file + optional PDF/cover). Raises PostError on
 # any problem so the caller decides whether to abort or skip. Returns a hash
 # of the paths it wrote, for the summary line.
@@ -90,6 +103,7 @@ def create_post(repo_root:, title:, topic:, subcategory:, cat_seg:, pdf:, tags:,
   raise PostError, "PDF not found: #{pdf}" if pdf && !File.exist?(pdf)
 
   has_pdf = !pdf.nil?
+  page_count = pdf_page_count(pdf) if has_pdf
   slug = slugify(title)
   raise PostError, "Title '#{title}' slugifies to nothing usable." if slug.empty?
   basename = "#{date}-#{slug}"
@@ -144,6 +158,7 @@ def create_post(repo_root:, title:, topic:, subcategory:, cat_seg:, pdf:, tags:,
   end
   front_matter_lines << "tags: #{tags_yaml}"
   front_matter_lines << "pdf: /assets/pdfs/#{cat_seg}/#{basename}.pdf" if has_pdf
+  front_matter_lines << "pages: #{page_count}" if has_pdf
   front_matter_lines << "cover: /assets/pdfs/#{cat_seg}/#{basename}.png" if cover_generated
 
   body_placeholder = if has_pdf

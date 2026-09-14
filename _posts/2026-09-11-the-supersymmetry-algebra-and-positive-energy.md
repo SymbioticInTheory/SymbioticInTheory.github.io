@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [supergravity, supersymmetry]
 tags: [supersymmetry, quantum-field-theory, spinors, dirac-spinors, positive-energy]
 pdf: /assets/pdfs/supergravity/supersymmetry/2026-09-11-the-supersymmetry-algebra-and-positive-energy.pdf
+pages: 2
 cover: /assets/pdfs/supergravity/supersymmetry/2026-09-11-the-supersymmetry-algebra-and-positive-energy.png
 ---
 

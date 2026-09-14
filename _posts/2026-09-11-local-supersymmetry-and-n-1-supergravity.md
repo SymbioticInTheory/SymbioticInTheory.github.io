@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [supergravity, supergravity-foundations]
 tags: [supergravity, supersymmetry, gravitino, gauge-symmetry, spinors]
 pdf: /assets/pdfs/supergravity/supergravity-foundations/2026-09-11-local-supersymmetry-and-n-1-supergravity.pdf
+pages: 3
 cover: /assets/pdfs/supergravity/supergravity-foundations/2026-09-11-local-supersymmetry-and-n-1-supergravity.png
 ---
 

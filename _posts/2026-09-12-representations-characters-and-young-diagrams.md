@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [representation-theory, representations]
 tags: [representation-theory, group-theory, characters, young-diagrams]
 pdf: /assets/pdfs/representation-theory/representations/2026-09-12-representations-characters-and-young-diagrams.pdf
+pages: 49
 cover: /assets/pdfs/representation-theory/representations/2026-09-12-representations-characters-and-young-diagrams.png
 ---
 

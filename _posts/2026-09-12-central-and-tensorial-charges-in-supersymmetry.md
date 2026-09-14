@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, supersymmetry]
 tags: [string-theory, supersymmetry, central-charges, p-form-fields, bps-states]
 pdf: /assets/pdfs/string-theory/supersymmetry/2026-09-12-central-and-tensorial-charges-in-supersymmetry.pdf
+pages: 4
 cover: /assets/pdfs/string-theory/supersymmetry/2026-09-12-central-and-tensorial-charges-in-supersymmetry.png
 ---
 

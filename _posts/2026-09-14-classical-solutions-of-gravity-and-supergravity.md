@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [supergravity, general-relativity]
 tags: [gravity, supergravity, classical-solutions, bps-states, differential-geometry]
 pdf: /assets/pdfs/supergravity/general-relativity/2026-09-14-classical-solutions-of-gravity-and-supergravity.pdf
+pages: 49
 cover: /assets/pdfs/supergravity/general-relativity/2026-09-14-classical-solutions-of-gravity-and-supergravity.png
 ---
 

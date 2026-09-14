@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-mechanics, central-potentials]
 tags: [quantum-mechanics, angular-momentum, central-potentials, schrodinger-equation]
 pdf: /assets/pdfs/quantum-mechanics/central-potentials/2026-09-12-angular-momentum-and-central-potentials.pdf
+pages: 25
 cover: /assets/pdfs/quantum-mechanics/central-potentials/2026-09-12-angular-momentum-and-central-potentials.png
 ---
 

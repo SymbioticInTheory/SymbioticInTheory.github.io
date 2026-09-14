@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [supergravity, general-relativity]
 tags: [general-relativity, vielbeins, spin-connection, spinors, differential-geometry]
 pdf: /assets/pdfs/supergravity/general-relativity/2026-09-11-general-relativity-in-the-vielbein-formalism.pdf
+pages: 19
 cover: /assets/pdfs/supergravity/general-relativity/2026-09-11-general-relativity-in-the-vielbein-formalism.png
 ---
 

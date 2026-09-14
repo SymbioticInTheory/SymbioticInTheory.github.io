@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [statistical-physics, blackbody-radiation]
 tags: [statistical-physics, blackbody-radiation, bose-einstein-integrals, thermodynamics]
 pdf: /assets/pdfs/statistical-physics/blackbody-radiation/2026-09-12-blackbody-radiation-integrals.pdf
+pages: 2
 cover: /assets/pdfs/statistical-physics/blackbody-radiation/2026-09-12-blackbody-radiation-integrals.png
 ---
 

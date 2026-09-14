@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, renormalisation]
 tags: [quantum-field-theory, feynman-diagrams, loop-amplitudes, vacuum-bubbles]
 pdf: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-higher-order-feynman-diagrams.pdf
+pages: 5
 cover: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-higher-order-feynman-diagrams.png
 ---
 

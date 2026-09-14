@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, scattering-theory]
 tags: [quantum-field-theory, perturbation-theory, scattering-theory, lippmann-schwinger]
 pdf: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-time-independent-perturbation-theory-and-scattering-states.pdf
+pages: 6
 cover: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-time-independent-perturbation-theory-and-scattering-states.png
 ---
 

@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [string-theory, mathematical-foundations]
 tags: [complex-analysis, several-complex-variables, holomorphic-functions, differential-geometry]
 pdf: /assets/pdfs/string-theory/mathematical-foundations/2026-09-14-complex-analysis-in-several-variables.pdf
+pages: 21
 cover: /assets/pdfs/string-theory/mathematical-foundations/2026-09-14-complex-analysis-in-several-variables.png
 ---
 

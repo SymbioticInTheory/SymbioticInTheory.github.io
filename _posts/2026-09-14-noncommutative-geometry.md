@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [commutative-algebra, category-theory]
 tags: [noncommutative-geometry, operator-algebras, spectral-theory, category-theory]
 pdf: /assets/pdfs/commutative-algebra/category-theory/2026-09-14-noncommutative-geometry.pdf
+pages: 8
 cover: /assets/pdfs/commutative-algebra/category-theory/2026-09-14-noncommutative-geometry.png
 ---
 

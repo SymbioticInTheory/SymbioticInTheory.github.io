@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-information, quantum-computing]
 tags: [quantum-information, qubits, quantum-gates, pauli-matrices]
 pdf: /assets/pdfs/quantum-information/quantum-computing/2026-09-12-single-qubit-gates-and-pauli-operators.pdf
+pages: 4
 cover: /assets/pdfs/quantum-information/quantum-computing/2026-09-12-single-qubit-gates-and-pauli-operators.png
 ---
 

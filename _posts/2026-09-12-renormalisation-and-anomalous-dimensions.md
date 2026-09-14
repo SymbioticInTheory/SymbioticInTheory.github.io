@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, renormalisation]
 tags: [quantum-field-theory, renormalisation, anomalous-dimensions, renormalisation-group]
 pdf: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-renormalisation-and-anomalous-dimensions.pdf
+pages: 10
 cover: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-renormalisation-and-anomalous-dimensions.png
 ---
 

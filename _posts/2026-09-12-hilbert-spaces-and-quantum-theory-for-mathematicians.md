@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, mathematical-foundations]
 tags: [string-theory, hilbert-spaces, quantum-mechanics, functional-analysis, category-theory]
 pdf: /assets/pdfs/string-theory/mathematical-foundations/2026-09-12-hilbert-spaces-and-quantum-theory-for-mathematicians.pdf
+pages: 4
 cover: /assets/pdfs/string-theory/mathematical-foundations/2026-09-12-hilbert-spaces-and-quantum-theory-for-mathematicians.png
 ---
 

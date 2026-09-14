@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [supergravity, spin-geometry]
 tags: [spinors, spin-geometry, spin-bundles, differential-geometry, representation-theory]
 pdf: /assets/pdfs/supergravity/spin-geometry/2026-09-11-spin-bundles-and-spin-structures.pdf
+pages: 3
 cover: /assets/pdfs/supergravity/spin-geometry/2026-09-11-spin-bundles-and-spin-structures.png
 ---
 

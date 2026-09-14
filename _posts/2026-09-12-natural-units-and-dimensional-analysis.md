@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, foundations]
 tags: [quantum-field-theory, natural-units, dimensional-analysis, scalar-fields]
 pdf: /assets/pdfs/quantum-field-theory/foundations/2026-09-12-natural-units-and-dimensional-analysis.pdf
+pages: 1
 cover: /assets/pdfs/quantum-field-theory/foundations/2026-09-12-natural-units-and-dimensional-analysis.png
 ---
 

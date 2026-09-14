@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [quantum-field-theory, renormalisation]
 tags: [renormalisation, feynman-diagrams, loop-integrals, counterterms, qft]
 pdf: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-14-renormalisation-and-feynman-diagrams.pdf
+pages: 15
 cover: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-14-renormalisation-and-feynman-diagrams.png
 ---
 

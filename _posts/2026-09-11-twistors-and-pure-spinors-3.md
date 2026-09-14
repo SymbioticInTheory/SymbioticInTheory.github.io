@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [twistors, pure-spinors]
 tags: [pure-spinors, superstrings, green-schwarz, brst, kappa-symmetry]
 pdf: /assets/pdfs/twistors/pure-spinors/2026-09-11-twistors-and-pure-spinors-3.pdf
+pages: 14
 cover: /assets/pdfs/twistors/pure-spinors/2026-09-11-twistors-and-pure-spinors-3.png
 ---
 

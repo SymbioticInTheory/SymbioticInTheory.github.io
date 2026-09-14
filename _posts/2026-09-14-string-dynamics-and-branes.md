@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [string-theory, branes]
 tags: [worldsheet, open-strings, closed-strings, p-branes, nambu-goto-action]
 pdf: /assets/pdfs/string-theory/branes/2026-09-14-string-dynamics-and-branes.pdf
+pages: 28
 cover: /assets/pdfs/string-theory/branes/2026-09-14-string-dynamics-and-branes.png
 ---
 

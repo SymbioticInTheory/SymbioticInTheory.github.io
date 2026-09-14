@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, ads-cft]
 tags: [string-theory, ads-cft, supersymmetry, superconformal-symmetry, representation-theory]
 pdf: /assets/pdfs/string-theory/ads-cft/2026-09-12-supersymmetry-for-ads-cft.pdf
+pages: 22
 cover: /assets/pdfs/string-theory/ads-cft/2026-09-12-supersymmetry-for-ads-cft.png
 ---
 

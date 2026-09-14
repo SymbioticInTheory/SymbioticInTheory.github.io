@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, scattering-theory]
 tags: [quantum-field-theory, scattering-amplitudes, s-matrix, cross-sections]
 pdf: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-scattering-matrix-elements-and-cross-sections.pdf
+pages: 5
 cover: /assets/pdfs/quantum-field-theory/scattering-theory/2026-09-12-scattering-matrix-elements-and-cross-sections.png
 ---
 

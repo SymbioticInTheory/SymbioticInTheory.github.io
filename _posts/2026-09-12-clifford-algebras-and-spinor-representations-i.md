@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, spinors]
 tags: [string-theory, clifford-algebras, spinors, representation-theory, spin-groups]
 pdf: /assets/pdfs/string-theory/spinors/2026-09-12-clifford-algebras-and-spinor-representations-i.pdf
+pages: 4
 cover: /assets/pdfs/string-theory/spinors/2026-09-12-clifford-algebras-and-spinor-representations-i.png
 ---
 

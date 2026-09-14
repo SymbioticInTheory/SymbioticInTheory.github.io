@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, brst-quantisation]
 tags: [string-theory, brst, gauge-symmetry, faddeev-popov, ghosts]
 pdf: /assets/pdfs/string-theory/brst-quantisation/2026-09-12-brst-symmetry-and-gauge-fixing.pdf
+pages: 18
 cover: /assets/pdfs/string-theory/brst-quantisation/2026-09-12-brst-symmetry-and-gauge-fixing.png
 ---
 

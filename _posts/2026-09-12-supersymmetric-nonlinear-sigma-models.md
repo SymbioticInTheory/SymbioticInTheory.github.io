@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, supersymmetry]
 tags: [string-theory, supersymmetry, sigma-models, superfields, worldsheet]
 pdf: /assets/pdfs/string-theory/supersymmetry/2026-09-12-supersymmetric-nonlinear-sigma-models.pdf
+pages: 4
 cover: /assets/pdfs/string-theory/supersymmetry/2026-09-12-supersymmetric-nonlinear-sigma-models.png
 ---
 

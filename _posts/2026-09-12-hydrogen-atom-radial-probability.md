@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-mechanics, hydrogen-atom]
 tags: [quantum-mechanics, hydrogen-atom, radial-wavefunctions, probability-density]
 pdf: /assets/pdfs/quantum-mechanics/hydrogen-atom/2026-09-12-hydrogen-atom-radial-probability.pdf
+pages: 3
 cover: /assets/pdfs/quantum-mechanics/hydrogen-atom/2026-09-12-hydrogen-atom-radial-probability.png
 ---
 

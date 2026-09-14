@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [string-theory, mathematical-foundations]
 tags: [relativistic-particle, proper-time, nambu-goto-action, bosonic-string]
 pdf: /assets/pdfs/string-theory/mathematical-foundations/2026-09-14-the-bosonic-point-particle.pdf
+pages: 27
 cover: /assets/pdfs/string-theory/mathematical-foundations/2026-09-14-the-bosonic-point-particle.png
 ---
 

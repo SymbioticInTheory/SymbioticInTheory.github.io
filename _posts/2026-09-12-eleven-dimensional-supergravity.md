@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, supergravity]
 tags: [string-theory, supergravity, supersymmetry, eleven-dimensions]
 pdf: /assets/pdfs/string-theory/supergravity/2026-09-12-eleven-dimensional-supergravity.pdf
+pages: 16
 cover: /assets/pdfs/string-theory/supergravity/2026-09-12-eleven-dimensional-supergravity.png
 ---
 

@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, symmetry-and-spinors]
 tags: [quantum-field-theory, spinors, representation-theory, lorentz-symmetry]
 pdf: /assets/pdfs/quantum-field-theory/symmetry-and-spinors/2026-09-12-lorentz-representations-and-left-handed-spinors.pdf
+pages: 7
 cover: /assets/pdfs/quantum-field-theory/symmetry-and-spinors/2026-09-12-lorentz-representations-and-left-handed-spinors.png
 ---
 

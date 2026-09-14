@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, conformal-field-theory]
 tags: [string-theory, conformal-field-theory, operator-products, radial-quantisation, ward-identities]
 pdf: /assets/pdfs/string-theory/conformal-field-theory/2026-09-12-conformal-field-theory-and-operator-products.pdf
+pages: 71
 cover: /assets/pdfs/string-theory/conformal-field-theory/2026-09-12-conformal-field-theory-and-operator-products.png
 ---
 

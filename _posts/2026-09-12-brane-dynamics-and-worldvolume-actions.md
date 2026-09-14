@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [string-theory, branes]
 tags: [string-theory, branes, worldvolume, nambu-goto, kappa-symmetry]
 pdf: /assets/pdfs/string-theory/branes/2026-09-12-brane-dynamics-and-worldvolume-actions.pdf
+pages: 20
 cover: /assets/pdfs/string-theory/branes/2026-09-12-brane-dynamics-and-worldvolume-actions.png
 ---
 

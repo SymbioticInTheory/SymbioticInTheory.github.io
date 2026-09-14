@@ -182,7 +182,7 @@ end
 
 # Emit front matter in a stable, readable key order regardless of what order
 # the keys ended up in the hash (set_categories can swap category/categories).
-key_order = %w[layout title date category categories tags pdf cover]
+key_order = %w[layout title date category categories tags pdf pages cover]
 ordered = front_matter.keys.sort_by { |k| [key_order.index(k) || key_order.length, k] }
 front_matter_lines = ordered.map { |k| "#{k}: #{format_value.call(k, front_matter[k])}" }
 new_front_matter = "---\n#{front_matter_lines.join("\n")}\n---"

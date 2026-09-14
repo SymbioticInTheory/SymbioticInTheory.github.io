@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [supergravity, supergravity-foundations]
 tags: [supergravity, supersymmetry, gravitino, gauge-symmetry, spinors, higher-spin]
 pdf: /assets/pdfs/supergravity/supergravity-foundations/2026-09-11-constructing-n-1-pure-supergravity.pdf
+pages: 22
 cover: /assets/pdfs/supergravity/supergravity-foundations/2026-09-11-constructing-n-1-pure-supergravity.png
 ---
 

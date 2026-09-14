@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [twistors, scattering-amplitudes]
 tags: [bcfw, recursion-relations, on-shell-methods, scattering-amplitudes]
 pdf: /assets/pdfs/twistors/scattering-amplitudes/2026-09-11-on-shell-bcfw-recursion.pdf
+pages: 44
 cover: /assets/pdfs/twistors/scattering-amplitudes/2026-09-11-on-shell-bcfw-recursion.png
 ---
 

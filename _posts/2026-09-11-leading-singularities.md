@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [twistors, scattering-amplitudes]
 tags: [leading-singularities, scattering-amplitudes, spinor-helicity]
 pdf: /assets/pdfs/twistors/scattering-amplitudes/2026-09-11-leading-singularities.pdf
+pages: 3
 cover: /assets/pdfs/twistors/scattering-amplitudes/2026-09-11-leading-singularities.png
 ---
 

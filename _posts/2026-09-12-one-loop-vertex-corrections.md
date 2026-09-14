@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, renormalisation]
 tags: [quantum-field-theory, loop-amplitudes, vertex-corrections, renormalisation]
 pdf: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-one-loop-vertex-corrections.pdf
+pages: 10
 cover: /assets/pdfs/quantum-field-theory/renormalisation/2026-09-12-one-loop-vertex-corrections.png
 ---
 

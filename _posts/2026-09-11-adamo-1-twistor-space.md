@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [twistors, twistor-geometry]
 tags: [twistor-geometry, spinors, penrose-transform, projective-twistor-space]
 pdf: /assets/pdfs/twistors/twistor-geometry/2026-09-11-adamo-1-twistor-space.pdf
+pages: 32
 cover: /assets/pdfs/twistors/twistor-geometry/2026-09-11-adamo-1-twistor-space.png
 ---
 

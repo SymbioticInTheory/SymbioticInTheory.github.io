@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [quantum-information, information-theory]
 tags: [shannon-entropy, information-theory, probability, combinatorics, typical-sets]
 pdf: /assets/pdfs/quantum-information/information-theory/2026-09-14-entropy-and-information.pdf
+pages: 11
 cover: /assets/pdfs/quantum-information/information-theory/2026-09-14-entropy-and-information.png
 ---
 

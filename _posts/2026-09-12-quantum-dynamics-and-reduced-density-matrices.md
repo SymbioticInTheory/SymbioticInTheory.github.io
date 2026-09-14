@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-information, quantum-dynamics]
 tags: [quantum-information, density-matrices, partial-trace, heisenberg-picture]
 pdf: /assets/pdfs/quantum-information/quantum-dynamics/2026-09-12-quantum-dynamics-and-reduced-density-matrices.pdf
+pages: 4
 cover: /assets/pdfs/quantum-information/quantum-dynamics/2026-09-12-quantum-dynamics-and-reduced-density-matrices.png
 ---
 

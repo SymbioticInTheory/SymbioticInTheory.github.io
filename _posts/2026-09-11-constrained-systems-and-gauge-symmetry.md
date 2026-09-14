@@ -5,6 +5,7 @@ date: 2026-09-11
 categories: [twistors, constrained-systems]
 tags: [constrained-systems, gauge-symmetry, hamiltonian-mechanics, dirac-constraints]
 pdf: /assets/pdfs/twistors/constrained-systems/2026-09-11-constrained-systems-and-gauge-symmetry.pdf
+pages: 8
 cover: /assets/pdfs/twistors/constrained-systems/2026-09-11-constrained-systems-and-gauge-symmetry.png
 ---
 

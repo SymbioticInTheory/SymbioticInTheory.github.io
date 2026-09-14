@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [string-theory, brst-quantisation]
 tags: [brst, gauge-fixing, worldsheet, ghosts, string-theory]
 pdf: /assets/pdfs/string-theory/brst-quantisation/2026-09-14-brst-symmetry-and-brst-primers.pdf
+pages: 18
 cover: /assets/pdfs/string-theory/brst-quantisation/2026-09-14-brst-symmetry-and-brst-primers.png
 ---
 

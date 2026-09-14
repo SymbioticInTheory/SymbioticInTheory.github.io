@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, path-integrals-and-green-functions]
 tags: [quantum-field-theory, path-integrals, quantum-mechanics, propagators]
 pdf: /assets/pdfs/quantum-field-theory/path-integrals-and-green-functions/2026-09-12-the-nonrelativistic-path-integral.pdf
+pages: 2
 cover: /assets/pdfs/quantum-field-theory/path-integrals-and-green-functions/2026-09-12-the-nonrelativistic-path-integral.png
 ---
 

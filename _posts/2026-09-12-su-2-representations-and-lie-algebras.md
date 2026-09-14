@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [quantum-field-theory, symmetry-and-spinors]
 tags: [quantum-field-theory, representation-theory, lie-groups, su-2, gauge-symmetry]
 pdf: /assets/pdfs/quantum-field-theory/symmetry-and-spinors/2026-09-12-su-2-representations-and-lie-algebras.pdf
+pages: 8
 cover: /assets/pdfs/quantum-field-theory/symmetry-and-spinors/2026-09-12-su-2-representations-and-lie-algebras.png
 ---
 

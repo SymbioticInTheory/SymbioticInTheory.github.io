@@ -5,6 +5,7 @@ date: 2026-09-12
 categories: [commutative-algebra, rings-and-ideals]
 tags: [commutative-algebra, prime-ideals, localisation, unique-factorisation]
 pdf: /assets/pdfs/commutative-algebra/rings-and-ideals/2026-09-12-prime-ideals-factorisation-and-localisation.pdf
+pages: 11
 cover: /assets/pdfs/commutative-algebra/rings-and-ideals/2026-09-12-prime-ideals-factorisation-and-localisation.png
 ---
 

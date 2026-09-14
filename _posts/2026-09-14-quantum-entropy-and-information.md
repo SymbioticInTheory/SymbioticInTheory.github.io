@@ -5,6 +5,7 @@ date: 2026-09-14
 categories: [quantum-information, information-theory]
 tags: [quantum-information, entropy, shannon-entropy, information-theory, probability]
 pdf: /assets/pdfs/quantum-information/information-theory/2026-09-14-quantum-entropy-and-information.pdf
+pages: 12
 cover: /assets/pdfs/quantum-information/information-theory/2026-09-14-quantum-entropy-and-information.png
 ---
 
