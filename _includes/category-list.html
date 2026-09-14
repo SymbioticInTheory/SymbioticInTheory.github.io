@@ -11,6 +11,7 @@
 {% if categories == nil or categories.size == 0 %}
 <p>No categories yet.</p>
 {% else %}
+<p class="category-total">{{ site.posts.size }} notes in the archive.</p>
 <ul class="category-index">
   {% for category in categories %}
   <li class="category-index-item">
