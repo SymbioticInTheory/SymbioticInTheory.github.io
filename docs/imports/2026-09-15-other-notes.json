@@ -1,0 +1,59 @@
+{
+  "review": "First-pass visual review of all 40 pages for titles, subject placement, and tags.",
+  "files": [
+    {
+      "source": "other notes/EFT.pdf",
+      "sha256": "1cfa9ab8bcbc9db624c1d0f3dc1c1691ab395435c41dcdcb33f0ff108f242d19",
+      "pages": 9,
+      "post": "_posts/2026-09-15-effective-field-theory-of-gravity-and-binary-dynamics.md",
+      "pdf": "assets/pdfs/quantum-field-theory/effective-field-theory/2026-09-15-effective-field-theory-of-gravity-and-binary-dynamics.pdf",
+      "cover": "assets/pdfs/quantum-field-theory/effective-field-theory/2026-09-15-effective-field-theory-of-gravity-and-binary-dynamics.png",
+      "title": "Effective Field Theory of Gravity and Binary Dynamics"
+    },
+    {
+      "source": "other notes/Special Lectures_ Effective Field Theories of Gravity (Andrew Tolley).pdf",
+      "sha256": "32af5dd33aadaf5a873aa9510999775630a7cba4b9a14ca312a08fc80ed9b825",
+      "pages": 7,
+      "post": "_posts/2026-09-15-gravitational-effective-field-theory-and-quantum-corrections.md",
+      "pdf": "assets/pdfs/quantum-field-theory/effective-field-theory/2026-09-15-gravitational-effective-field-theory-and-quantum-corrections.pdf",
+      "cover": "assets/pdfs/quantum-field-theory/effective-field-theory/2026-09-15-gravitational-effective-field-theory-and-quantum-corrections.png",
+      "title": "Gravitational Effective Field Theory and Quantum Corrections"
+    },
+    {
+      "source": "other notes/Special Lectures_ Geometry and Supersymmetry in Non - linear sigma models (Ulf Lindstrom).pdf",
+      "sha256": "8100036bcf54338ae7793d13f651e977f2463630559e09c8b1c730045d7c4295",
+      "pages": 5,
+      "post": "_posts/2026-09-15-supersymmetric-sigma-models-and-generalised-kahler-geometry.md",
+      "pdf": "assets/pdfs/string-theory/supersymmetry/2026-09-15-supersymmetric-sigma-models-and-generalised-kahler-geometry.pdf",
+      "cover": "assets/pdfs/string-theory/supersymmetry/2026-09-15-supersymmetric-sigma-models-and-generalised-kahler-geometry.png",
+      "title": "Supersymmetric Sigma Models and Generalised Kähler Geometry"
+    },
+    {
+      "source": "other notes/Special Lectures_ Introduction to Higher Spins (Victor Lekeu)(1).pdf",
+      "sha256": "5ad1467c2217f308340da2a8df75c8132b8e8cc3a7f822f1ec452ef80be6ca83",
+      "pages": 5,
+      "post": "_posts/2026-09-15-higher-spin-fields-poincare-representations-and-little-groups.md",
+      "pdf": "assets/pdfs/quantum-field-theory/higher-spin-theory/2026-09-15-higher-spin-fields-poincare-representations-and-little-groups.pdf",
+      "cover": "assets/pdfs/quantum-field-theory/higher-spin-theory/2026-09-15-higher-spin-fields-poincare-representations-and-little-groups.png",
+      "title": "Higher-Spin Fields: Poincaré Representations and Little Groups"
+    },
+    {
+      "source": "other notes/Special Lectures_ Introduction to Higher Spins (Victor Lekeu).pdf",
+      "sha256": "8d4e486c7ea14df801a510e3397ec7f796ec12d4e73672d13f8f6351174bd45a",
+      "pages": 4,
+      "post": "_posts/2026-09-15-higher-spin-fields-gauge-fixing-and-the-fronsdal-action.md",
+      "pdf": "assets/pdfs/quantum-field-theory/higher-spin-theory/2026-09-15-higher-spin-fields-gauge-fixing-and-the-fronsdal-action.pdf",
+      "cover": "assets/pdfs/quantum-field-theory/higher-spin-theory/2026-09-15-higher-spin-fields-gauge-fixing-and-the-fronsdal-action.png",
+      "title": "Higher-Spin Fields: Gauge Fixing and the Fronsdal Action"
+    },
+    {
+      "source": "other notes/WL.pdf",
+      "sha256": "3e0044c3fb5d44d02abf975736cd5154e2971d2b09146367f20ef8edbf8d1eff",
+      "pages": 10,
+      "post": "_posts/2026-09-15-wilson-loops-and-supersymmetric-localisation.md",
+      "pdf": "assets/pdfs/quantum-field-theory/supersymmetric-gauge-theory/2026-09-15-wilson-loops-and-supersymmetric-localisation.pdf",
+      "cover": "assets/pdfs/quantum-field-theory/supersymmetric-gauge-theory/2026-09-15-wilson-loops-and-supersymmetric-localisation.png",
+      "title": "Wilson Loops and Supersymmetric Localisation"
+    }
+  ]
+}

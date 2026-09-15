@@ -12,6 +12,7 @@
 <p>No categories yet.</p>
 {% else %}
 <p class="category-total">{{ site.data.archive_stats.pdf_count }} PDFs · {{ site.data.archive_stats.page_count_display }} pages in the archive.</p>
+{% if include.show_intro %}{% include archive-intro.html %}{% endif %}
 <ul class="category-index">
   {% for category in categories %}
   <li class="category-index-item">
@@ -19,7 +20,7 @@
     <span class="category-count">{{ category.count }} note{% unless category.count == 1 %}s{% endunless %}</span>
     {% if category.subcategories.size > 0 %}
     <p class="category-subs">{{ category.subcategories | join: " · " }}</p>
-    {% elsif category.count == 1 %}
+    {% elsif category.slug == "dissertation" and category.count == 1 %}
     {% assign single_post = site.categories[category.slug] | first %}
     <p class="category-subs"><a href="{{ single_post.url | relative_url }}">{{ single_post.title | escape }}</a></p>
     {% endif %}
