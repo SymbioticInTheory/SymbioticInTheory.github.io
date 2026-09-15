@@ -36,9 +36,9 @@
     <span class="category-count">{{ category.count }} note{% unless category.count == 1 %}s{% endunless %}</span>
     {% if category.subcategories.size > 0 %}
     <p class="category-subs">{{ category.subcategories | join: " · " }}</p>
-    {% elsif category.slug == "dissertation" and category.count == 1 %}
+    {% elsif category.count == 1 %}
     {% assign single_post = site.categories[category.slug] | first %}
-    <p class="category-subs"><a href="{{ single_post.url | relative_url }}">{{ single_post.title | escape }}</a></p>
+    <p class="category-subs">{% if category.slug == "dissertation" %}<a href="{{ single_post.url | relative_url }}">{{ single_post.title | escape }}</a>{% else %}{{ single_post.title | escape }}{% endif %}</p>
     {% endif %}
   </li>
   {% endif %}
