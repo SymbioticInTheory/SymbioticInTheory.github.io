@@ -106,6 +106,21 @@
   margin-bottom: 1.5rem;
 }
 
+.archive-illustration {
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+.archive-illustration img {
+  display: block;
+  width: 100%;
+  max-width: 544px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
 .archive-divider {
   margin: 1.5rem 0 1.25rem;
   border: 0;

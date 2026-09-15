@@ -14,6 +14,9 @@
 <p class="category-total">{{ site.data.archive_stats.pdf_count }} PDFs · {{ site.data.archive_stats.page_count_display }} pages in the archive.</p>
 {% if include.show_intro %}{% include archive-intro.html %}{% endif %}
 {% if include.show_intro %}
+<figure class="archive-illustration">
+  <img src="{{ "/assets/images/022.jpg" | relative_url }}" alt="Hand-drawn illustration of a cyclic universe surrounded by notes on quantum field theory, string theory, conformal field theory, matrix models, and supergravity.">
+</figure>
 {% assign dissertation_category = categories | where: "slug", "dissertation" | first %}
 {% if dissertation_category %}
 <ul class="category-index category-index-featured">
