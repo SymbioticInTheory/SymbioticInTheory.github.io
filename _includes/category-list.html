@@ -13,8 +13,24 @@
 {% else %}
 <p class="category-total">{{ site.data.archive_stats.pdf_count }} PDFs · {{ site.data.archive_stats.page_count_display }} pages in the archive.</p>
 {% if include.show_intro %}{% include archive-intro.html %}{% endif %}
+{% if include.show_intro %}
+{% assign dissertation_category = categories | where: "slug", "dissertation" | first %}
+{% if dissertation_category %}
+<ul class="category-index category-index-featured">
+  <li class="category-index-item">
+    <a class="category-index-link" href="{{ dissertation_category.url | relative_url }}">{{ dissertation_category.name }}</a>
+    <span class="category-count">{{ dissertation_category.count }} note</span>
+    {% assign dissertation_post = site.categories[dissertation_category.slug] | first %}
+    <p class="category-subs"><a href="{{ dissertation_post.url | relative_url }}">{{ dissertation_post.title | escape }}</a></p>
+  </li>
+</ul>
+<hr class="archive-divider">
+{% endif %}
+{% endif %}
 <ul class="category-index">
   {% for category in categories %}
+  {% if include.show_intro and category.slug == "dissertation" %}
+  {% else %}
   <li class="category-index-item">
     <a class="category-index-link" href="{{ category.url | relative_url }}">{{ category.name }}</a>
     <span class="category-count">{{ category.count }} note{% unless category.count == 1 %}s{% endunless %}</span>
@@ -25,6 +41,7 @@
     <p class="category-subs"><a href="{{ single_post.url | relative_url }}">{{ single_post.title | escape }}</a></p>
     {% endif %}
   </li>
+  {% endif %}
   {% endfor %}
 </ul>
 {% endif %}
