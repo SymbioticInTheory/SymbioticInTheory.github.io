@@ -1,7 +1,8 @@
 {% comment %}
   The category index: every top-level category as a link to its own
-  /categories/<slug>/ page, where its subcategories and posts live. Shared by
-  the homepage (index.html), which is the archive's main category index.
+  /categories/<slug>/ page, where its subcategories and posts live. The
+  homepage is the archive's main category index; its featured dissertation and
+  tutoring section are placed separately from the main notes list.
 
   site.data.category_index is assembled by _plugins/category_pages.rb from
   site.posts — it's already sorted by display name, and carries the post count
@@ -11,7 +12,14 @@
 {% if categories == nil or categories.size == 0 %}
 <p>No categories yet.</p>
 {% else %}
+{% if include.show_intro %}
+<div class="archive-stats">
+  <p class="category-total">Notes: {{ site.data.archive_stats.notes_pdf_count }} PDFs · {{ site.data.archive_stats.notes_page_count_display }} pages</p>
+  <p class="category-total">Tutoring: {{ site.data.archive_stats.tutoring_pdf_count }} PDFs · {{ site.data.archive_stats.tutoring_page_count_display }} pages</p>
+</div>
+{% else %}
 <p class="category-total">{{ site.data.archive_stats.pdf_count }} PDFs · {{ site.data.archive_stats.page_count_display }} pages in the archive.</p>
+{% endif %}
 {% if include.show_intro %}{% include archive-intro.html %}{% endif %}
 {% if include.show_intro %}
 <figure class="archive-illustration">
@@ -32,8 +40,10 @@
 {% endif %}
 <ul class="category-index">
   {% for category in categories %}
-  {% if include.show_intro and category.slug == "dissertation" %}
-  {% else %}
+  {% assign show_category = true %}
+  {% if include.show_intro and category.slug == "dissertation" %}{% assign show_category = false %}{% endif %}
+  {% if include.show_intro and category.slug == "tutoring" %}{% assign show_category = false %}{% endif %}
+  {% if show_category %}
   <li class="category-index-item">
     <a class="category-index-link" href="{{ category.url | relative_url }}">{{ category.name }}</a>
     <span class="category-count">{{ category.count }} note{% unless category.count == 1 %}s{% endunless %}</span>
@@ -47,4 +57,18 @@
   {% endif %}
   {% endfor %}
 </ul>
+{% if include.show_intro %}
+{% assign tutoring_category = categories | where: "slug", "tutoring" | first %}
+{% if tutoring_category %}
+<hr class="archive-divider archive-divider-tutoring">
+<ul class="category-index category-index-tutoring">
+  <li class="category-index-item">
+    <a class="category-index-link" href="{{ tutoring_category.url | relative_url }}">{{ tutoring_category.name }}</a>
+    <span class="category-count">{{ tutoring_category.count }} notes</span>
+    <p class="category-subs">{{ tutoring_category.subcategories | join: " · " }}</p>
+  </li>
+</ul>
+<hr class="archive-divider archive-divider-tutoring-end">
+{% endif %}
+{% endif %}
 {% endif %}

@@ -72,12 +72,27 @@ module SymbioticInTheory
       end
 
       pdf_posts = site.posts.docs.select { |post| post.data["pdf"] }
-      page_count = pdf_posts.sum { |post| post.data["pages"].to_i }
-      site.data["archive_stats"] = {
-        "pdf_count"          => pdf_posts.length,
-        "page_count"         => page_count,
-        "page_count_display" => page_count.to_s.reverse.scan(/.{1,3}/).join(",").reverse,
-      }
+      stats_for = lambda do |posts|
+        page_count = posts.sum { |post| post.data["pages"].to_i }
+        {
+          "pdf_count"          => posts.length,
+          "page_count"         => page_count,
+          "page_count_display" => page_count.to_s.reverse.scan(/.{1,3}/).join(",").reverse,
+        }
+      end
+      tutoring_posts = pdf_posts.select { |post| Array(post.data["categories"]).first.to_s == "tutoring" }
+      notes_posts = pdf_posts.reject { |post| Array(post.data["categories"]).first.to_s == "tutoring" }
+      all_stats = stats_for.call(pdf_posts)
+      notes_stats = stats_for.call(notes_posts)
+      tutoring_stats = stats_for.call(tutoring_posts)
+      site.data["archive_stats"] = all_stats.merge(
+        "notes_pdf_count"          => notes_stats["pdf_count"],
+        "notes_page_count"         => notes_stats["page_count"],
+        "notes_page_count_display" => notes_stats["page_count_display"],
+        "tutoring_pdf_count"          => tutoring_stats["pdf_count"],
+        "tutoring_page_count"         => tutoring_stats["page_count"],
+        "tutoring_page_count_display" => tutoring_stats["page_count_display"],
+      )
     end
 
     private

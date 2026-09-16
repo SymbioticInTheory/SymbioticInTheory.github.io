@@ -12,6 +12,9 @@ layout: default
 <article class="page category-page">
   <p class="breadcrumb"><a href="{{ "/" | relative_url }}">&larr; All categories</a></p>
   <h1>{{ page.category_name }}</h1>
+  {% if page.category == "tutoring" %}
+  <p class="category-total">{{ site.data.archive_stats.tutoring_pdf_count }} PDFs · {{ site.data.archive_stats.tutoring_page_count_display }} pages in this section.</p>
+  {% endif %}
 
   {% if page.direct_posts.size > 0 %}
   {% include category-posts.html posts=page.direct_posts %}

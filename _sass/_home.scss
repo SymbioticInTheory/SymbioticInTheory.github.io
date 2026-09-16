@@ -96,6 +96,18 @@
   padding: 0;
 }
 
+.archive-stats {
+  margin: 0 0 1.25rem;
+}
+
+.archive-stats .category-total {
+  margin: 0;
+}
+
+.archive-stats .category-total + .category-total {
+  margin-top: 0.25rem;
+}
+
 .category-total {
   margin: 0 0 1.25rem;
   color: var(--color-text-muted);
