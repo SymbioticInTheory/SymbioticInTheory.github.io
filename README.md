@@ -46,9 +46,9 @@ ruby script/new_post.rb --topic <topic> --pdf-dir <dir> [--subcategory <sub>]
 nests it one level deeper. Both may be several words if quoted
 (`--topic "Linear Algebra"`) — the name is slugified for the URL and the
 `assets/pdfs/` folder, and recorded as typed in `_data/categories.yml` for
-display. Browse them at `/categories/`, which lists the categories and links
-into a page per category. See
-`docs/DEVELOPMENT.md` for the full walkthrough, including a
+display. The homepage lists the categories and links into a page per
+category. Adding a PDF needs `poppler-utils` installed (for the page count
+and cover). See `docs/DEVELOPMENT.md` for the full walkthrough, including a
 lightweight-machine-only workflow that doesn't need the full dev
 environment above.
 

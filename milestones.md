@@ -20,6 +20,7 @@ the placeholder homepage is live at https://symbioticintheory.github.io/.
 
 ## M2 — Theme & layout
 - [x] Header/nav, homepage post feed, single-post layout, about page, footer
+      (About page later removed; homepage feed later retired — see M6)
 - [x] Responsive CSS in `_sass`
 - [x] Styled with placeholder posts only, no real content yet
 
@@ -188,8 +189,35 @@ committing static assets (the PDFs themselves, vendored PDF.js) rather
 than generating them on every deploy.
 
 ## M6 — Migrate real content
-- [ ] Convert existing PDFs into actual posts
+- [x] Convert existing PDFs into actual posts — the early QFT/journal
+      posts were replaced wholesale by the full archive: 334 PDF posts
+      across 18 top-level categories, each with a real title, a one-line
+      description, tags, a cover and a `pages:` count
 - [ ] Verify viewer behavior on desktop + mobile for real content
-- [ ] Fix anything ugly
+- [~] Fix anything ugly — homepage reworked into an archive landing page
+      (see below); file-name slugs fixed for accented/dashed titles
 
 **Exit criteria:** site is live with real handwritten-note posts.
+
+**Decision record:** the homepage became an archive landing page rather
+than a bare category list: archive-wide PDF/page totals (split notes vs.
+tutoring), a written introduction, an illustration, the master's
+dissertation featured at the top, and tutoring set apart at the bottom.
+`/categories/` was folded into it (now a redirect), and the About page and
+its nav link were removed — the intro covers that ground. The site title
+changed from "Symbiotic In Theory" to "Issac Williams", and the theme went
+from light/cream to a single dark palette.
+
+**Decision record:** page totals are summed at build time from a `pages:`
+front-matter field written by `new_post.rb` (via `pdfinfo`), rather than
+read from the PDFs during the build — keeps the Actions build free of
+poppler, the same reasoning as committing cover thumbnails (M5). Since a
+missing count would silently undercount, `new_post.rb` refuses to add a PDF
+it can't count.
+
+**Decision record:** `slugify` originally dropped any non-ASCII letter, so
+"Poincaré" became `poincar`. It now folds accents to their base letter
+(Unicode NFKD, then strip combining marks). The four posts with mangled
+file names (two Poincaré, plus "Work–Energy" and "Sturm–Liouville", whose
+dashes had been deleted outright by the bulk import) were renamed, which
+changed their URLs.

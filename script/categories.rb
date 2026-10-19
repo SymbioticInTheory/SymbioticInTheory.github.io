@@ -25,8 +25,11 @@ module Categories
 
   # Turn free text into a URL/folder-safe slug.
   #   "Linear Algebra" -> "linear-algebra"
+  #   "Poincaré Group" -> "poincare-group"  (accents folded, not dropped)
+  #   "Work–Energy"    -> "work-energy"     (any dash is a separator)
   def slugify(text)
-    text.to_s.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-+|-+$/, "")
+    text.to_s.unicode_normalize(:nfkd).gsub(/\p{Mn}/, "")
+        .downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-+|-+$/, "")
   end
 
   # Collapse whitespace but otherwise leave the name exactly as typed — this

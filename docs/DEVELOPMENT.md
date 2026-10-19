@@ -28,10 +28,14 @@ is enough to add real posts.
   use Ruby's built-in standard library, no gems, so there's nothing to
   `bundle install`.
 - **git** — to save your new post and PDF and send them to GitHub.
-- **`pdftoppm`** (from the `poppler-utils` package) — optional. It's what
-  generates the little cover-image thumbnail for the homepage. Skip it
-  and the post still works fine; it just falls back to a plain placeholder
-  icon on the homepage instead of a picture of the note's first page.
+- **`poppler-utils`** — **required for any post with a PDF.** It provides
+  two tools the script uses: `pdfinfo`, which reads the PDF's page count
+  (stored as `pages:` in the post and summed into the PDF/page totals on
+  the homepage), and `pdftoppm`, which renders the cover-image thumbnail.
+  Without `pdfinfo` the script refuses to add the PDF rather than write a
+  post with no page count, which would quietly throw the homepage totals
+  off. (`pdftoppm` alone is still soft: if just that is missing the
+  script warns and skips the thumbnail.) Text-only posts don't need it.
 - A plain text editor (anything — Notepad, TextEdit, VS Code, `nano`,
   whatever's on hand).
 
@@ -148,12 +152,13 @@ date: 2026-07-16
 category: chemistry
 tags: [lab-notes, week-3]
 pdf: /assets/pdfs/chemistry/2026-07-16-lab-notebook-week-3.pdf
+pages: 4
 cover: /assets/pdfs/chemistry/2026-07-16-lab-notebook-week-3.png
 ---
 ```
 
 (Without `--pdf`, this block is shorter — `layout: post` instead of
-`layout: pdf-post`, and no `pdf:`/`cover:` lines.)
+`layout: pdf-post`, and no `pdf:`/`pages:`/`cover:` lines.)
 
 Below that block is a placeholder comment. Delete it and replace it with
 a few sentences of plain English describing the note — this text appears
@@ -229,7 +234,10 @@ This:
 1. If `--pdf` was given, copies the source PDF to
    `assets/pdfs/<topic>/<date>-<slug>.pdf` (creating the topic folder if
    it's new).
-2. If `--pdf` was given, renders page 1 of the PDF to a cover thumbnail,
+2. If `--pdf` was given, reads the PDF's page count with `pdfinfo`
+   (poppler-utils). This is **required** — if `pdfinfo` is missing or can't
+   read the file, the post isn't created.
+3. If `--pdf` was given, renders page 1 of the PDF to a cover thumbnail,
    `assets/pdfs/<topic>/<date>-<slug>.png`, via `pdftoppm` (poppler-utils
    — see "Local development environment" below). This thumbnail is used by
    the recent-posts feed, which is **currently paused** (the homepage now
@@ -237,13 +245,13 @@ This:
    the thumbnails are still generated so the feed can be switched back on
    without re-processing anything. If `pdftoppm` isn't installed, the
    script warns and continues without a cover rather than aborting.
-3. Creates `_posts/<date>-<slug>.md` with front matter filled in. With
+4. Creates `_posts/<date>-<slug>.md` with front matter filled in. With
    `--pdf`: `layout: pdf-post`, `title`, `date`, `category`, `tags`,
-   `pdf`, and `cover` if a thumbnail was generated. Without `--pdf`:
+   `pdf`, `pages`, and `cover` if a thumbnail was generated. Without `--pdf`:
    `layout: post` and just `title`, `date`, `category`, `tags` — a
    text-only post, same as the ones used to test the homepage feed
    during M2.
-4. Leaves a placeholder in the post body for context text — write normal
+5. Leaves a placeholder in the post body for context text — write normal
    Markdown here. With `--pdf` it renders above the embedded PDF viewer;
    without it, it's simply the whole post.
 
@@ -262,8 +270,7 @@ topic per label.
 singular `category: <topic>` to a plural `categories: [<topic>, <sub>]`
 list (which is what puts both levels in the URL). It's capped at one level
 — there's no sub-subcategory. Every category and subcategory is browsable
-on the site starting at **`/categories/`** (linked as "Categories" in the
-nav) — see ["Browsing categories on the
+on the site starting at the **homepage** (`/`) — see ["Browsing categories on the
 site"](#browsing-categories-on-the-site) below.
 
 ## Multi-word category names
@@ -284,7 +291,10 @@ Two things come out of the name you type:
   mechanical form, and it's what goes in the post's front matter, which
   means it's also what shows up in the URL and in the `assets/pdfs/` folder
   name. Keeping spaces out of those avoids `%20`-riddled links and file
-  paths with spaces in them.
+  paths with spaces in them. Accented letters are folded to plain ones
+  (`Poincaré` → `poincare`, `Strömgren` → `stromgren`) and any dash,
+  including `–`, becomes a hyphen (`Work–Energy` → `work-energy`). Post
+  titles are slugified the same way for their file names and URLs.
 - a **display name** — exactly what you typed, `Linear Algebra`. This is
   what the site actually shows, everywhere a category appears as text.
 
@@ -319,8 +329,8 @@ entry when the automatic version isn't right, e.g. `"pdes"` → `"PDEs"`.
 
 ## Browsing categories on the site
 
-`/categories/` (which is also the homepage — see "Homepage & navigation")
-lists just the **top-level categories**, each as a link, with a post count
+The homepage (see "Homepage & navigation") lists just the **top-level
+categories**, each as a link, with a post count
 and its subcategory names underneath. Clicking one goes to
 `/categories/<slug>/`, that category's own page, which shows:
 
@@ -346,11 +356,13 @@ rather than using GitHub's native Pages Jekyll build, which would ignore
 post, place the PDF at `assets/pdfs/<topic>/<date>-<slug>.pdf`, create
 `_posts/<date>-<slug>.md` with the same front matter fields by hand
 (`layout: pdf-post`), and write the front matter's `pdf:` path to match
-exactly where you put the file. For a cover thumbnail, run
+exactly where you put the file. Add `pages: <n>` with the PDF's page count
+(`pdfinfo <pdf>` prints it) — the homepage totals are summed from this
+field, so a post without it counts as zero pages. For a cover thumbnail, run
 `pdftoppm -png -singlefile -f 1 -l 1 -scale-to 600 <pdf> <pdf-without-extension>`
-and add a matching `cover:` front-matter field — both optional. For a
+and add a matching `cover:` front-matter field — optional. For a
 text-only post, just create `_posts/<date>-<slug>.md` with
-`layout: post` and no `pdf:`/`cover:` fields. Write the category as a slug
+`layout: post` and no `pdf:`/`pages:`/`cover:` fields. Write the category as a slug
 (`category: linear-algebra`, not `category: Linear Algebra`) and, if the
 title-cased version isn't the name you want on the site, add a line for it
 in `_data/categories.yml` — see ["Multi-word category
@@ -485,7 +497,8 @@ Done: 3 post(s) created, 0 skipped.
 ```
 
 For **each** PDF it does exactly what the single-file command does — copies
-the PDF into `assets/pdfs/<topic>/<subcategory>/`, renders a cover
+the PDF into `assets/pdfs/<topic>/<subcategory>/`, records its page count,
+renders a cover
 thumbnail next to it (if `pdftoppm` is installed), and writes a
 `_posts/<date>-<slug>.md` file with the front matter filled in. So a
 three-PDF run creates roughly nine files (three posts, three PDFs, three
@@ -580,13 +593,40 @@ across all three.
 
 ## Homepage & navigation
 
-The site's front page (`/`) is the **category index** — the same list of
-category links you reach from the "Categories" nav link. It's rendered from
-`_includes/category-list.html`, which both `index.html` (the homepage) and
-`categories.html` (`/categories/`) include, so the two stay in sync. The nav
-bar is Home / About / Categories / Tags; "Home" and "Categories" both land on
-this category view. From there you drill into a single category's page — see
-["Browsing categories on the site"](#browsing-categories-on-the-site).
+The site's front page (`/`) is the **category index**, rendered by
+`index.html` → `{% include category-list.html show_intro=true %}`. With
+`show_intro=true` the include lays the page out as an archive:
+
+1. **Totals** — PDF and page counts, split into *Notes* and *Tutoring*.
+   These come from `site.data.archive_stats`, which
+   `_plugins/category_pages.rb` computes by summing each post's `pages:`
+   front matter (see "Adding a new post" — `new_post.rb` fills it in via
+   `pdfinfo`). The tutoring split is by top-level category `tutoring`.
+2. **Introduction** — the prose in `_includes/archive-intro.html`; edit that
+   file to change it.
+3. **Illustration** — `assets/images/022.jpg`.
+4. **Featured dissertation** — the `dissertation` category, pulled out of
+   the main list and shown first, linking straight to its one post.
+5. **Main category list** — every other top-level category. A category with
+   a single post and no subcategories shows that post's title in place of a
+   subcategory list.
+6. **Tutoring** — the `tutoring` category, pulled out and shown last between
+   dividers. Its category page also shows the tutoring-only totals.
+
+Without `show_intro` the include renders just the plain list with a single
+archive-wide total. Nothing currently uses that mode.
+
+`/categories/` is no longer a page of its own: `categories.html` is a bare
+redirect to `/`, kept so old links still land somewhere. Category pages'
+"All categories" breadcrumb points at `/`.
+
+The nav bar is just **Home / Tags**. (There used to be an About page and a
+Categories link; both are gone. The site title in the header comes from
+`title:` in `_config.yml`.)
+
+The site uses a single **dark theme** — the palette is the CSS custom
+properties at the top of `_sass/_base.scss`. There's no light mode or
+toggle.
 
 The **recent-posts feed** (a reverse-chronological, paginated list of all
 posts, the `home` layout in `_layouts/home.html`) is **currently not shown
@@ -600,10 +640,10 @@ back later:
   what disables it (the plugin is inert without them).
 
 To restore the feed, uncomment those two `_config.yml` lines and give some
-page the `home` layout (e.g. a `recent.html` with `layout: home`, or point
-`index.html` back at it). Note classic `jekyll-paginate` only paginates a
-root `index.html`; to paginate the feed at any other path (like `/recent/`)
-you'd swap to `jekyll-paginate-v2` — see the Gemfile-plugins note below.
+page the `home` layout (e.g. a `recent.html` with `layout: home`). Note
+classic `jekyll-paginate` only paginates a root `index.html`; to paginate
+the feed at any other path (like `/recent/`) you'd swap to
+`jekyll-paginate-v2` — see the Gemfile-plugins note below.
 
 ## Local development environment
 
@@ -640,7 +680,8 @@ sudo apt install -y git curl build-essential libssl-dev libreadline-dev \
   zlib1g-dev autoconf bison libyaml-dev libncurses5-dev libffi-dev libgdbm-dev \
   unzip poppler-utils
 # (unzip is also used later for vendoring PDF.js, see below; poppler-utils
-# provides pdftoppm, used by script/new_post.rb to generate cover thumbnails)
+# provides pdfinfo and pdftoppm, which script/new_post.rb uses for each PDF's
+# page count (required) and cover thumbnail)
 
 # 2. rbenv + ruby-build
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
